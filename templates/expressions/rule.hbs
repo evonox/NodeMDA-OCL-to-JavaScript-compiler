@@ -1,0 +1,13 @@
+if(! ({{{ condition }}})) {
+    {{#switch ruleType}}
+    {{#case "inv"}}
+    throw new Error("Violation of invariant '{{ ruleName }}' in class '{{ className }}'.");
+    {{/case}}
+    {{#case "pre"}}
+    throw new Error("Violation of pre-condition '{{ ruleName }}' when calling method '{{ methodName }}' in class '{{ className }}'.");
+    {{/case}}
+    {{#case "post"}}
+    throw new Error("Violation of post-condition '{{ ruleName }}' when calling method '{{ methodName }}' in class '{{ className }}'.");
+    {{/case}}
+    {{/switch}}
+}

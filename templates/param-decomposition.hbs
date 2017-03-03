@@ -1,0 +1,4 @@
+{{#if this}}
+    let {{#each this}}  {{ parameterName }} {{#if @last}} {{else}} , {{/if}} {{/each}};
+    [{{#each this}}  {{ parameterName }} {{#if @last}} {{else}} , {{/if}} {{/each}}] = args;
+{{/if}}

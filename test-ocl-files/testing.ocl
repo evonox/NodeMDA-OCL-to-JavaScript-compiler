@@ -1,0 +1,38 @@
+-- Book invariants
+context Book
+    inv bookIsBorrowedMaxOnce:
+        self.loans->size() < 1
+    
+    inv BookMustHaveTitleAndCode:
+        self.title->notEmpty() and self.bookCode <> ""
+
+    inv BookMustHaveAuthors:
+        self.authors->size() > 0
+
+-- Constraints for borrowing a book
+context Book::borrowBook(reader: Reader): OclVoid
+
+    pre MaximumNumberofAllowedBorrowedBooks:
+        reader.loans->size() <= 5
+
+    pre ReaderDoesNotHaveThisBook:
+        reader.loans->count(self.id) = 0
+
+    pre BookIsNotBorroed:
+        self.loans->isEmpty()
+
+    post BookIsBorrowed:
+        self.loans->count(self.id) = 1
+
+    post ReaderBorrowedThisBook:
+        reader.loans->count(self.id) = 1
+
+-- Constraints for returning a book
+context Book::returnBook(reader: Reader): OclVoid
+
+    pre ReaderHasThisBook:
+        reader.loans->count(self) = 1
+
+    post ReaderReturnedTheBook:
+        reader.loans->count(self) = 0
+       

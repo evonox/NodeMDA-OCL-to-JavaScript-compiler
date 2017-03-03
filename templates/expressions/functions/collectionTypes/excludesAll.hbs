@@ -1,0 +1,7 @@
+(
+    ({{>expression args.[0]}}).reduce( (excludesAll, item) => {
+        if( ({{>expression firstArgument}}).indexOf(item) &gt;= 0)
+            excludesAll = false;
+        return &nbsp; excludesAll;
+    }, true)
+)

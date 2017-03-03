@@ -1,0 +1,23 @@
+{
+  "name": "nodemda-ocl-to-js",
+  "version": "0.1.1",
+  "description": "This package parses OCL and compiles the constraints into JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "js",
+    "ocl",
+    "parser",
+    "javascript",
+    "node",
+    "nodemda"
+  ],
+  "author": "Viktor Prehnal",
+  "license": "MIT",
+  "dependencies": {
+    "handlebars": "^4.0.6",
+    "js-beautify": "^1.6.11"
+  }
+}

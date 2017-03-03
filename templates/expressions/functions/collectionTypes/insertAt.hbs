@@ -1,0 +1,11 @@
+(
+    ({{>expression firstArgument}})
+    .slice(0, ({{>expression args.[0]}}) - 1)
+    .concat(
+        ({{>expression args.[1]}})
+    )
+    .concat(
+        ({{>expression firstArgument}})
+        .slice(({{>expression args.[0]}}) - 1)
+    )
+)

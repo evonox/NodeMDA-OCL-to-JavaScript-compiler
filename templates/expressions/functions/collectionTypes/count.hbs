@@ -1,0 +1,4 @@
+( ({{>expression firstArgument}}).reduce((total, item) => { 
+    if(item === {{>expression args.[0]}}) total++;
+    return (total);
+}, 0) )

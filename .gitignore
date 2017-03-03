@@ -1,3 +1,7 @@
+# Custom
+*.txt
+publish.bat
+
 # Logs
 logs
 *.log

@@ -1,0 +1,5 @@
+(({{>expression firstArgument}}).filter( (item) => {
+    let &nbsp; index = ({{>expression firstArgument}}).indexOf(item);
+    index++;
+    return (index >= ({{>expression args.[0]}}) && index <= ({{>expression args.[1]}}));
+}))

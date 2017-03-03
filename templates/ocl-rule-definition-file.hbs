@@ -1,0 +1,74 @@
+/*
+    This file contains definition of rules defined by OCL for class '{{ className }}''
+
+    DO NOT MODIFY THIS FILE BECAUSE IT WILL BE 
+    OVERWRITTEN DURING THE NEXT CODE GENERATION PROCESS
+*/
+
+var {{ className }} = require("{{ filePath }}.js");
+
+(function() {
+
+    /*
+        Method for checking class invariants
+    */
+    {{ className }}._ocl_checkInvariants = function() {
+        {{#each invariants}}
+            {{{ this }}}
+        {{/each}}
+    }
+
+    {{#each operations}}
+
+    {{ ../className }}._ocl_{{ operationName }}_preconditions = function(args) {
+        this._ocl_checkInvariants();
+
+        {{#with (lookup parameters)}}
+            {{>param-decomposition }}
+        {{/with}}
+        {{#each preconditions}}
+            {{{ this }}}
+        {{/each}}
+    }
+
+    {{/each}}
+
+    {{#each operations}}
+
+    {{ ../className }}._ocl_{{ operationName }}_postconditions = function(args) {
+        {{#with (lookup parameters )}}
+            {{>param-decomposition }}
+        {{/with}}
+        {{#each postconditions}}
+            {{{ this }}}
+        {{/each}}
+
+        this._ocl_checkInvariants();
+    }
+
+    {{/each}}
+
+    {{ className }}._ocl_checkPreConditions = function(methodName, args) {
+        switch(methodName) {
+        {{#each operations}}
+        case "{{ operationName }}":
+            this._ocl_{{ operationName }}_preconditions(args);
+            break;
+        {{/each}}
+            default:
+                throw new Error("Invalid method name in _ocl_checkPreConditions in class '{{ className }}'.");
+        }
+    }
+
+    {{ className }}._ocl_checkPostConditions = function(methodName, args) {
+        switch(methodName) {
+        {{#each operations }}
+        case "{{ operationName }}":
+            this._ocl_{{ operationName }}_postconditions(args);
+            break;
+        {{/each}}
+            default:
+                throw new Error("Invalid method name in _ocl_checkPostConditions in class '{{ className }}'.");
+        }
+    }
+})();

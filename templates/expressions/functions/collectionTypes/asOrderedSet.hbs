@@ -1,0 +1,12 @@
+(
+    ({{>expression firstArgument}}).reduce( (result, item) => {
+        if(result.indexOf(item ) &lt; 0) {
+            result.push(item);
+        }
+        return &nbsp; result;
+    }, []).sort( (a, b) => {
+        if(a &lt; b) return &nbsp; -1;
+        else &nbsp; if(a &gt; b)  return &nbsp; 1;
+        else &nbsp; return &nbsp; 0;
+    })
+)

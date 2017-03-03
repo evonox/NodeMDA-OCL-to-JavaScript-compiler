@@ -1,0 +1,19 @@
+{{#xif "pathType === 'instance'" }}
+    this
+{{else}}
+    {{#xif "pathType === 'attribute'" }}
+    this.
+    {{/xif}}
+    {{#each pathElements}}
+        {{#if @first}} {{else}}.{{/if}}
+        {{this}}
+    {{/each}}
+    {{#xif "args !== null"}}
+    (
+        {{#each args}}
+            {{> expression this}}
+            {{#if @last}} {{else}} , {{/if}}
+        {{/each}}
+    )
+    {{/xif}}
+{{/xif}}

@@ -1,0 +1,30 @@
+(
+    ({{>expression firstArgument}}).reduce( (result, item) => {
+        if(item &nbsp; instanceof &nbsp; Array) {
+            let &nbsp; noArray = true;
+            let &nbsp; srcArray = item;
+            let &nbsp; destArray = new &nbsp; Array();
+            do {
+                noArray = true;
+                srcArray.every( (subItem) => {
+                    if(subItem &nbsp; instanceof &nbsp; Array) {
+                        subItem.every( (subSubItem) => {
+                            if(subSubItem &nbsp; instanceof &nbsp; Array) noArray = false;
+                            destArray.push(subSubItem);
+                            return &nbsp; true;
+                        });
+                    } else {
+                        destArray.push(subItem);
+                    }
+                    return &nbsp; true;
+                });
+                srcArray = destArray;
+                destArray = new &nbsp; Array();
+            } while(noArray === false);
+            return &nbsp; result.concat(srcArray);
+        } else {
+            result.push(item);
+            return &nbsp; result;
+        }
+    }, [])
+)
