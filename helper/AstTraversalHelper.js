@@ -8,9 +8,9 @@ class TraverseAstTree {
     traverseContexts(ast, handlers) {   
         ast.every( (astChildNode) => {
             if(astChildNode.type === "package") {
-                this.invokeBeginPackagetHandler(astChildNode, handlers);
+                this.invokeBeginPackageHandler(astChildNode, handlers);
                 this.traverseContexts(astChildNode.contexts, handlers);
-                this.invokeEndPackagetHandler(astChildNode, handlers);
+                this.invokeEndPackageHandler(astChildNode, handlers);
             } else if(astChildNode.type === "context") {
                 this.processContext(astChildNode, handlers)
             } else {
@@ -73,7 +73,7 @@ class TraverseAstTree {
         });
     }
 
-    invokeBeginPackagetHandler(ast, handlers) {
+    invokeBeginPackageHandler(ast, handlers) {
         if(handlers.beginPackage !== undefined) {
             handlers.beginPackage(ast);
         }

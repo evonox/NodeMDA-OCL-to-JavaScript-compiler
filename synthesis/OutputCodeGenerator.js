@@ -113,6 +113,7 @@ function generateCode(cmModel, outputDir, fileExtension) {
     cmModel.classes.every(  (classElement) => {
         createDirectoryIfNotExists(outputDir, classElement.packagePath);
         generateCodeForClass(classElement, outputDir, fileExtension);
+        return true;
     });
 }
 

@@ -77,6 +77,10 @@ class ContainerElement extends AbstractElement {
 
 class Model extends ContainerElement {
 
+    constructor() {
+        super();
+        this._elementType = eElementType.Package;
+    }
 }
 
 class UMLElement extends ContainerElement {
