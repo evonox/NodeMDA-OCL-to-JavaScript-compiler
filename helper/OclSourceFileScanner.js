@@ -1,4 +1,5 @@
 const fs = require("fs");
+const winston = require("winston");
 const fileScanner = require("./FileScanner");
 
 const oclFileExtension = ".ocl";
@@ -11,7 +12,7 @@ class OclFileReader {
 
     scanOclFiles(rootOclDir) {
         fileScanner.scan(rootOclDir, oclFileExtension, (filePath) => {
-            console.log(`Loading OCL file '${filePath}'...`);
+            winston.info(`Loading OCL file '${filePath}'...`);
             let fileContent = fs.readFileSync(filePath).toString();
             this.appendOclSource(fileContent);
         });

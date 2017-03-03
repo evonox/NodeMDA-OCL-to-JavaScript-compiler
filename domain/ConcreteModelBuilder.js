@@ -73,6 +73,7 @@ class ConcreteModelBuilder {
     mergeInvariants(amModel, classElement) {
         amModel.invariants.every( (invariant) => {
             classElement.addInvariant(invariant);
+            return true;
         });
     }
 }
