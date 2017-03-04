@@ -1,25 +1,24 @@
 const NodeMDA = require('nodemda');
+const winston = require("winston");
 const compilerAPI = require("./CompilerAPI");
 
 // DEBUG - these values should be in configuration, needs to be thought of how
 const oclSourceDir = ".";
-
-console.dir(NodeMDA);
 
 function loadUmlModel() {
     return NodeMDA.Meta.Reader.getMeta(NodeMDA.Options.modelFileName);
 }
 
 function run() {
-    console.log("Loading UML model...");
+    winston.info("Loading UML model...");
     let umlModel = loadUmlModel();
-    console.log("UML model has been loaded.");
+    winston.info("UML model has been loaded.");
 
-    console.log("Starting OCL compiler...");
+    winston.info("Starting OCL compiler...");
     compilerAPI.parseOCL(oclSourceDir);
     compilerAPI.validate(umlModel);
     compilerAPI.generateCode(NodeMDA.Options.output);
-    console.log("OCL compilation finished.");
+    winston.info("OCL compilation finished.");
 }
 
 module.exports = {

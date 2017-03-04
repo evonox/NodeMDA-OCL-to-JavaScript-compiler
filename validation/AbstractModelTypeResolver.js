@@ -1,3 +1,4 @@
+const winston = require("winston");
 const am = require("../domain/AbstractModel");
 
 class AbstractModelTypeResolver {
@@ -19,6 +20,25 @@ class AbstractModelTypeResolver {
         this.resolvePackages(amClass.parentElement);
         this.resolveAttributes(umlClass, amClass);
         this.resolveOperations(umlClass, amClass);
+        this.checkAttachedOclConstraints(amClass);
+    }
+
+    checkAttachedOclConstraints(amClass) {
+        amClass.childElements.every((childElement) => {
+            this.checkBodyConstraint(childElement);
+            return true;            
+        });
+    }
+
+    checkBodyConstraint(amElement) {
+        if(amElement.bodyConstraints.length !== 0) {
+            if(amElement.isBodyConstraintValid()) {
+                amElement.elementType = am.eElementType.OclBody;
+            } else {
+                let constraintName = amElement.parentElement.name + "::" + amElement.name;
+                winston.error(`Invalid OCL constraint of type 'body' with name '${constraintName}'.`);
+            }
+        }
     }
 
     resolveAttributes(umlClass, amClass) {

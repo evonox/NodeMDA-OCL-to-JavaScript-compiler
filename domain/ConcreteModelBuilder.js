@@ -45,6 +45,22 @@ class ConcreteModelBuilder {
         if(amModel.elementType === am.eElementType.Operation) {
             this.processOperation(amModel, classElement);
         }
+        if(amModel.elementType === am.eElementType.OclBody) {
+            this.processOclBody(amModel, classElement);
+        }
+    }
+
+    processOclBody(amModel, classElement) {
+        let body = new cm.OclBodyConstraint(amModel.name);
+        body.expression = amModel.bodyConstraints[0];
+
+        amModel.operationParams.every((param) => {
+            let cmParam = new cm.Paramter(param.parameterName, param.parameterType);
+            body.addParameter(cmParam);
+            return true;
+        });
+
+        classElement.addOclBodyConstraint(body);
     }
 
     processRules(amModel, classElement) {

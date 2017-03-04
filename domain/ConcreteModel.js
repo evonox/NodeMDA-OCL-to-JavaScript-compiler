@@ -9,6 +9,26 @@ class Parameter {
     get paramType() { return this._paramType; }
 }
 
+class OclBodyConstraint {
+
+    constructor(name) {
+        this._name = name;
+        this._parameters = new Array();
+        this._expression = null;
+    }
+
+    get name() { return this._name; }
+    get expression() { return this._expression; }
+    get parameters() { return this._parameters; }
+
+    set expression(value) { this._expression = value; }
+
+    addParameter(param) {
+        this._parameters.push(param);
+    }
+}
+
+
 class Operation {
 
     constructor(operationName) {
@@ -44,6 +64,7 @@ class ClassElement {
         this._packagePath = new Array();
         this._invariants = new Array();
         this._operations = new Array();
+        this._oclBodyConstraints = new Array();
     }
 
     get className() { return this._className; }
@@ -54,6 +75,7 @@ class ClassElement {
 
     get invariants() { return this._invariants; }
     get operations() { return this._operations; }
+    get oclBodyConstraints() { return this._oclBodyConstraints; }
     get packagePath() { return this._packagePath; }
 
     addPackagePath(packagePath) {
@@ -70,6 +92,10 @@ class ClassElement {
 
     addOperation(operation) {
         this._operations.push(operation);
+    }
+
+    addOclBodyConstraint(constraint) {
+        this._oclBodyConstraints.push(constraint);
     }
 }
 
@@ -92,5 +118,6 @@ module.exports = {
     Model: Model,
     ClassElement: ClassElement,
     Operation: Operation,
-    Parameter: Parameter
+    Parameter: Parameter,
+    OclBodyConstraint: OclBodyConstraint
 }

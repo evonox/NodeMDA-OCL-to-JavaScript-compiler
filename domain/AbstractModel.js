@@ -5,6 +5,7 @@ eElementType.Package = 1;
 eElementType.Class = 2;
 eElementType.Attribute = 3;
 eElementType.Operation = 4;
+eElementType.OclBody = 5;
 
 class AbstractElement {
 
