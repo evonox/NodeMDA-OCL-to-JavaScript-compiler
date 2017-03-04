@@ -55,7 +55,7 @@ class ConcreteModelBuilder {
         body.expression = amModel.bodyConstraints[0];
 
         amModel.operationParams.every((param) => {
-            let cmParam = new cm.Paramter(param.parameterName, param.parameterType);
+            let cmParam = new cm.Parameter(param.parameterName, param.parameterType);
             body.addParameter(cmParam);
             return true;
         });
@@ -72,7 +72,7 @@ class ConcreteModelBuilder {
         classElement.addOperation(operation);
 
         amModel.operationParams.every( (param) => {
-            let cmParam = new cm.Paramter(param.parameterName, param.parameterType);
+            let cmParam = new cm.Parameter(param.parameterName, param.parameterType);
             operation.addParameter(cmParam);
             return true;
         });

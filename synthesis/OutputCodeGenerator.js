@@ -26,9 +26,13 @@ function replaceMetaCharacters(input) {
     return output;
 }
 
-function generateCodeForRule(ruleAst, contextParams) {
-    let output =  expressionTemplate(ruleAst);
+function processExpression(exprAst) {
+    let output =  expressionTemplate(exprAst);
     output = replaceMetaCharacters(output);
+    return output;
+}
+function generateCodeForRule(ruleAst, contextParams) {
+    let output = processExpression(ruleAst);
 
     contextParams.condition = output;
     output = ruleTemplate(contextParams);
@@ -81,10 +85,20 @@ function processPostconditions(classElement) {
     }
 }
 
+function processOclBody(classElement) {
+    for(let i = 0; i < classElement.oclBodyConstraints.length; i++) {
+        let body = classElement.oclBodyConstraints[i];
+        let source = processExpression(body.expression.ruleBody);
+        source = beautify(source, { indent_size: 4 });
+        body.expression = source;
+    }
+}
+
 function processRulesForClass(classElement) {
     processInvariants(classElement);
     processPreconditions(classElement);
-    processPostconditions(classElement);   
+    processPostconditions(classElement);
+    processOclBody(classElement);
 }
 
 function generateOclDefinitionFile(classElement) {

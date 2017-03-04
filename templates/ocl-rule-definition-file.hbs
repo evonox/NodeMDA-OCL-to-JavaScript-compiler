@@ -12,7 +12,12 @@ var {{ className }} = require("{{ filePath }}.js");
     /*
         OCL Body constraints
     */
+    {{#each oclBodyConstraints}}
+    {{ ../className }}._ocl_body_{{ name }} = function({{>parameter-list parameters }}) {
+        return ({{{ expression }}});
+    }
 
+    {{/each}}
     /*
         Class Invariant constraints
     */
