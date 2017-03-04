@@ -84,7 +84,7 @@ oclRule = ruleType:oclRuleType ruleName:identifier? opColon ruleBody:oclRuleBody
     }
 }
 
-oclRuleType = kwPrecondition / kwPostcondition / kwInvariant
+oclRuleType = kwPrecondition / kwPostcondition / kwInvariant / kwBody
 
 oclRuleBody = oclExpression
 
@@ -254,7 +254,8 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
 */
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
-        / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwIf / kwThen / kwElse / kwEndIf
+        / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwIf / kwThen 
+        / kwElse / kwEndIf
 
 kwIf = "if" _
 
@@ -275,6 +276,8 @@ kwPrecondition = "pre"  _  { return "pre"; }
 kwPostcondition = "post"  _ { return "post"; }
 
 kwInvariant = "inv" _ { return "inv"; }
+
+kwBody = "body" _ { return "body"; }
 
 kwSelf = "self"
 

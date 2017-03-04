@@ -80,6 +80,9 @@ class AbstractModelBuilder {
             case "inv":
                 umlElement.addInvariant(rule);
                 break;
+            case "body":
+                umlElement.addBodyConstraint(rule);
+                break;
             default:
                 throw new Error("Unknown rule type in AbstractModelBuilder.");
         }
