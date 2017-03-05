@@ -22,7 +22,7 @@ npm install -g nodemda-ocl-to-js
 ## Usage
 At first, you need to setup a project as it is again described at [**NodeMDA NPM page**](https://www.npmjs.com/package/nodemda).
 
-Then create some files with *ocl* extension inside the project directory. You can structure you **OCL files**
+Then create some files with **ocl** extension inside the project directory. You can structure your **OCL files**
 into subdirectories as you wish, the OCL compiler will find them.
 
 **_Then run command:_**
@@ -30,3 +30,14 @@ into subdirectories as you wish, the OCL compiler will find them.
 nodemda gen --platform ocl-to-js
 ```
 
+## Supported OCL language features
+* Supported constraints: **inv, pre, post**
+* Most OCL operators
+* Most primitive type functions
+* Most collection type functions except of iterations for now
+
+## The JS libraries this package is using
+* [PegJS parser generator](http;//pegjs.majda.cz)
+* [Handlebars templating engine](https://www.npmjs.com/package/handlebars)
+* [JS code beautifier](https://www.npmjs.com/package/js-beautify)
+* [Winston logger](https://github.com/winstonjs/winston)
