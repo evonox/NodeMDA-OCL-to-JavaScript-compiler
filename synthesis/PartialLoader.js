@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require('path');
 const hb = require('handlebars');
+const winston = require("winston");
 const fileScanner = require("../helper/FileScanner");
 
 const templateDir = "../templates"; 
@@ -8,13 +9,16 @@ const partialExtension = ".hbs";
 
 // scans partials in files
 function scanForPartials() {
+    winston.verbose("Loading Handlebars partials from file system...");
     let directory = path.join(__dirname, templateDir);
     fileScanner.scan(directory, partialExtension, filePath => {
+        winston.debug(`Reading partial file '${filePath}'...`)
         var content = fs.readFileSync(filePath).toString();
         var partialName = path.basename(filePath, partialExtension);
-        console.log(`Registering partial template ${partialName}...`);
+        winston.verbose(`Registering partial template '${partialName}'...`);
         hb.registerPartial(partialName, content);
     });
+    winston.verbose("Handlebars partials have been successfully loaded.\n");
 }
 
 // registers various helpers

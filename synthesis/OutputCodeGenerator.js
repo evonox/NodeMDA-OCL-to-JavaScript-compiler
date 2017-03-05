@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const hb = require("handlebars");
+const winston = require("winston");
 const beautify = require('js-beautify').js_beautify;
 const partialLoader = require("./PartialLoader");
 const cm = require("../domain/ConcreteModel");
@@ -12,9 +13,7 @@ const ruleTemplate = hb.compile("{{> rule }}");
 const oclFileTemplate = hb.compile("{{> ocl-rule-definition-file }}", {preventIndent: true});
 
 function initTemplates() {
-    console.log("Loading templates...");
     partialLoader.initTemplates();
-    console.log("Loading templates done.");
 }
 
 function replaceMetaCharacters(input) {

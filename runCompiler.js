@@ -1,5 +1,6 @@
 const NodeMDA = require('nodemda');
 const winston = require("winston");
+winston.level = "verbose";
 const compilerAPI = require("./CompilerAPI");
 
 // DEBUG - these values should be in configuration, needs to be thought of how
@@ -12,13 +13,13 @@ function loadUmlModel() {
 function run() {
     winston.info("Loading UML model...");
     let umlModel = loadUmlModel();
-    winston.info("UML model has been loaded.");
+    winston.info("UML model has been loaded.\n");
 
     winston.info("Starting OCL compiler...");
     compilerAPI.parseOCL(oclSourceDir);
     compilerAPI.validate(umlModel);
     compilerAPI.generateCode(NodeMDA.Options.output);
-    winston.info("OCL compilation finished.");
+    winston.info("OCL compilation finished.\n");
 }
 
 module.exports = {
