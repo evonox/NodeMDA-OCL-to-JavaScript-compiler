@@ -6,6 +6,7 @@ eElementType.Class = 2;
 eElementType.Attribute = 3;
 eElementType.Operation = 4;
 eElementType.OclBody = 5;
+eElementType.OclDerive = 6;
 
 class AbstractElement {
 
@@ -93,6 +94,7 @@ class UMLElement extends ContainerElement {
         this._postConditions = new Array();
         this._operationParams = new Array();
         this._bodyConstraints = new Array();
+        this._deriveConstraints = new Array();
     }
 
     get invariants() { return this._invariants; }
@@ -100,6 +102,7 @@ class UMLElement extends ContainerElement {
     get postConditions() { return this._postConditions; }
     get operationParams() { return this._operationParams; }
     get bodyConstraints() { return this._bodyConstraints; }
+    get deriveConstraints() { return this._deriveConstraints; }
 
     addInvariant(rule) {
         this._invariants.push(rule);
@@ -117,6 +120,10 @@ class UMLElement extends ContainerElement {
         this._bodyConstraints.push(rule);
     }
 
+    addDeriveConstraint(rule) {
+        this._deriveConstraints.push(rule);
+    }
+
     addOperationParam(param) {
         this._operationParams.push(param);
     }
@@ -129,6 +136,22 @@ class UMLElement extends ContainerElement {
         if(this.postConditions.length !== 0)
             return false;
         if(this.invariants.length !== 0)
+            return false;
+        if(this.deriveConstraints.length !== 0)
+            return false;
+        return true;
+    }
+
+    isDeriveConstraintValid() {
+        if(this.deriveConstraints.length !== 1)
+            return false;
+        if(this.preConditions.length !== 0)
+            return false;
+        if(this.postConditions.length !== 0)
+            return false;
+        if(this.invariants.length !== 0)
+            return false;
+        if(this.bodyConstraints.length !== 0)
             return false;
         return true;
     }

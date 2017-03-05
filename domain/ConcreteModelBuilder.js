@@ -42,11 +42,13 @@ class ConcreteModelBuilder {
 
     processClassAMNode(amModel, classElement) {
         this.processRules(amModel, classElement);
+
         if(amModel.elementType === am.eElementType.Operation) {
             this.processOperation(amModel, classElement);
-        }
-        if(amModel.elementType === am.eElementType.OclBody) {
+        } else if(amModel.elementType === am.eElementType.OclBody) {
             this.processOclBody(amModel, classElement);
+        } else if(amModel.elementType === am.eElementType.OclDerive) {
+            this.processOclDerive(amModel, classElement);
         }
     }
 
@@ -61,6 +63,12 @@ class ConcreteModelBuilder {
         });
 
         classElement.addOclBodyConstraint(body);
+    }
+
+    processOclDerive(amModel, classElement) {
+        let derive = new cm.OclDeriveConstraint(amModel.name);
+        derive.expression = amModel.deriveConstraints[0];
+        classElement.addOclDeriveConstraint(derive);
     }
 
     processRules(amModel, classElement) {

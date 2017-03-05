@@ -83,6 +83,9 @@ class AbstractModelBuilder {
             case "body":
                 umlElement.addBodyConstraint(rule);
                 break;
+            case "derive":
+                umlElement.addDeriveConstraint(rule);
+                break;
             default:
                 throw new Error("Unknown rule type in AbstractModelBuilder.");
         }

@@ -26,6 +26,7 @@ class AbstractModelTypeResolver {
     checkAttachedOclConstraints(amClass) {
         amClass.childElements.every((childElement) => {
             this.checkBodyConstraint(childElement);
+            this.checkDeriveConstraint(childElement);
             return true;            
         });
     }
@@ -37,6 +38,17 @@ class AbstractModelTypeResolver {
             } else {
                 let constraintName = amElement.parentElement.name + "::" + amElement.name;
                 winston.error(`Invalid OCL constraint of type 'body' with name '${constraintName}'.`);
+            }
+        }
+    }
+
+    checkDeriveConstraint(amElement) {
+        if(amElement.deriveConstraints.length !== 0) {
+            if(amElement.isDeriveConstraintValid()) {
+                amElement.elementType = am.eElementType.OclDerive;
+            } else {
+                let constraintName = amElement.parentElement.name + "::" + amElement.name;
+                winston.error(`Invalid OCL constraint of type 'derive' with name '${constraintName}'.`);
             }
         }
     }

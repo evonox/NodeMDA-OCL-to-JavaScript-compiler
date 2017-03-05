@@ -18,7 +18,7 @@ function initTemplates() {
 }
 
 function replaceMetaCharacters(input) {
-    output = input.replace(/[ \t\r\n]/g, "");
+    output = input.replace(/[\t\r\n]/g, "");
     output = output.replace(/&lt;/g, "<");
     output = output.replace(/&gt;/g, ">");
     output = output.replace(/&quot;/g, "'");
@@ -94,11 +94,21 @@ function processOclBody(classElement) {
     }
 }
 
+function processOclDerive(classElement) {
+    for(let i = 0; i < classElement.oclDeriveConstraints.length; i++) {
+        let derive = classElement.oclDeriveConstraints[i];
+        let source = processExpression(derive.expression.ruleBody);
+        source = beautify(source, { indent_size: 4 });
+        derive.expression = source;
+    }
+}
+
 function processRulesForClass(classElement) {
     processInvariants(classElement);
     processPreconditions(classElement);
     processPostconditions(classElement);
     processOclBody(classElement);
+    processOclDerive(classElement);
 }
 
 function generateOclDefinitionFile(classElement) {

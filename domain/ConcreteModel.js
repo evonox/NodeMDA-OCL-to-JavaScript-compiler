@@ -28,6 +28,19 @@ class OclBodyConstraint {
     }
 }
 
+class OclDeriveConstraint {
+
+    constructor(name) {
+        this._name = name;
+        this._expression = null;
+    }
+
+    get name() { return this._name; }
+    get expression() { return this._expression; }
+
+    set expression(value) { this._expression = value; }
+}
+
 
 class Operation {
 
@@ -65,6 +78,7 @@ class ClassElement {
         this._invariants = new Array();
         this._operations = new Array();
         this._oclBodyConstraints = new Array();
+        this._oclDeriveConstraints = new Array();
     }
 
     get className() { return this._className; }
@@ -76,6 +90,7 @@ class ClassElement {
     get invariants() { return this._invariants; }
     get operations() { return this._operations; }
     get oclBodyConstraints() { return this._oclBodyConstraints; }
+    get oclDeriveConstraints() { return this._oclDeriveConstraints; }
     get packagePath() { return this._packagePath; }
 
     addPackagePath(packagePath) {
@@ -96,6 +111,10 @@ class ClassElement {
 
     addOclBodyConstraint(constraint) {
         this._oclBodyConstraints.push(constraint);
+    }
+
+    addOclDeriveConstraint(constraint) {
+        this._oclDeriveConstraints.push(constraint);
     }
 }
 
@@ -119,5 +138,6 @@ module.exports = {
     ClassElement: ClassElement,
     Operation: Operation,
     Parameter: Parameter,
-    OclBodyConstraint: OclBodyConstraint
+    OclBodyConstraint: OclBodyConstraint,
+    OclDeriveConstraint: OclDeriveConstraint
 }

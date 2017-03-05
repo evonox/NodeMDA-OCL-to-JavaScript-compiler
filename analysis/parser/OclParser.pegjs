@@ -56,7 +56,7 @@ contextHeading = kwContext /*name:contextName?*/ path:elementPath operationDecla
     }
 }
 
-operationDeclaration = opLParen params:parameterList? opRParen opColon returnType:identifier {
+operationDeclaration = params:( opLParen params:parameterList? opRParen { return params; } )? opColon returnType:identifier {
     return {
         parameters: params === null ? [] : params,
         returnType: returnType
@@ -84,7 +84,7 @@ oclRule = ruleType:oclRuleType ruleName:identifier? opColon ruleBody:oclRuleBody
     }
 }
 
-oclRuleType = kwPrecondition / kwPostcondition / kwInvariant / kwBody
+oclRuleType = kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive
 
 oclRuleBody = oclExpression
 
@@ -254,8 +254,8 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
 */
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
-        / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwIf / kwThen 
-        / kwElse / kwEndIf
+        / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
+        / kwIf / kwThen / kwElse / kwEndIf
 
 kwIf = "if" _
 
@@ -278,6 +278,8 @@ kwPostcondition = "post"  _ { return "post"; }
 kwInvariant = "inv" _ { return "inv"; }
 
 kwBody = "body" _ { return "body"; }
+
+kwDerive = "derive" _ { return "derive"; }
 
 kwSelf = "self"
 

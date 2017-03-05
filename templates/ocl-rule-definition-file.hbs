@@ -10,6 +10,15 @@ var {{ className }} = require("./{{ className }}.js");
 (function() {
 
     /*
+        OCL Derive constraints
+    */
+    {{#each oclDeriveConstraints}}
+    {{ ../className }}._ocl_derive_{{ name }} = function() {
+        return ({{{ expression }}});
+    }
+
+    {{/each}}
+    /*
         OCL Body constraints
     */
     {{#each oclBodyConstraints}}
