@@ -37,7 +37,7 @@ nodemda gen --platform ocl-to-js
 * Most collection type functions except of iterations for now
 
 ## The JS libraries this package is using
-* [PegJS parser generator](http;//pegjs.majda.cz)
+* [PegJS parser generator](http://pegjs.majda.cz)
 * [Handlebars templating engine](https://www.npmjs.com/package/handlebars)
 * [JS code beautifier](https://www.npmjs.com/package/js-beautify)
 * [Winston logger](https://github.com/winstonjs/winston)
