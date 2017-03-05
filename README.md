@@ -1,7 +1,4 @@
 # OCL Compiler to Javascript for NodeMDA
-
-This project has been currently created and is still under construction.
-
 ## Introduction
 This project is a Node package that implements **OCL Compiler** generating code into JavaScript. **OCL** acronym 
 stands for **Object Constraint Language** which is a query language used to impose constraints on UML model
