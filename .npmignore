@@ -4,4 +4,4 @@
 node_modules
 test_ocl_files
 .gitignore
-
+.npmignore
