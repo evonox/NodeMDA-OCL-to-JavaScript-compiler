@@ -19,3 +19,14 @@ First you need to install **NodeMDA** code-generation engine. The process is wel
 npm install -g nodemda-ocl-to-js
 ```
 
+## Usage
+At first, you need to setup a project as it is again described at [**NodeMDA NPM page**](https://www.npmjs.com/package/nodemda).
+
+Then create some files with *ocl* extension inside the project directory. You can structure you **OCL files**
+into subdirectories as you wish, the OCL compiler will find them.
+
+**_Then run command:_**
+```
+nodemda gen --platform ocl-to-js
+```
+
