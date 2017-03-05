@@ -1,0 +1,7 @@
+*.ocl
+*.txt
+*.bat
+node_modules
+test_ocl_files
+.gitignore
+
