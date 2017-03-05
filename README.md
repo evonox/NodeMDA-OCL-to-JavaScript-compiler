@@ -29,10 +29,12 @@ nodemda gen --platform ocl-to-js
 **Please note that the current release is in pre-alpha version. The OCL compiler does not follow OCL standard in all details yet.**
 
 ## Supported OCL language features
+* Context and Package declarations
+* Navigation statements around a UML model
 * Supported OCL constraints: **inv, pre, post**
 * Most OCL operators
-* Most primitive type functions
-* Most collection type functions except of iterations for now
+* Most functions for primitive types
+* Most functions for collection types
 
 ## The JS libraries this package is using
 * [PegJS parser generator](http://pegjs.majda.cz)
