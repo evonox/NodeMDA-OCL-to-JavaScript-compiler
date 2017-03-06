@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const shell = require("shelljs");
 const fileScanner = require("./helper/FileScanner");
 const parser = require("./analysis/parser/OclParser");
 
@@ -9,11 +10,11 @@ fileScanner.scan("./tests/", "ocl", (filePath) => {
         startRule: "oclExpression"
     });
 
-    let outputFileName = path.join("./test-results", path.basename(filePath, ".ocl") + ".ast.txt");
+    let outputFileName = path.join("./test-results", path.dirname(filePath), path.basename(filePath, ".ocl") + ".ast.txt");
     
     let directory = path.dirname(outputFileName);
     if(fs.existsSync(directory) === false) {
-        fs.mkdirSync(directory);
+        shell.mkdir("-p", directory);
     }
     fs.writeFileSync(outputFileName, JSON.stringify(ast, null, 4));
 });

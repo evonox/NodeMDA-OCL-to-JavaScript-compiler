@@ -168,7 +168,7 @@ nsExpr7 = opLParen left:oclExpression opRParen builtInFunction:builtInFunctionCh
             return term;
         }
 
-expressionLiteral = data:( number / stringInQuotes / stringInDoubleQuotes /  kwTrue / kwFalse / navigation ) _ { return data; }
+expressionLiteral = data:( literal / navigation ) _ { return data; }
 
 /*
     BUILT-IN FUNCTIONS
@@ -250,12 +250,60 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
 }
 
 /*
+    OCL LITERALS
+*/
+
+literal = primitiveLiteral
+
+primitiveLiteral = literal:(booleanLiteral / numberLiteral / stringLiteral / nullLiteral / invalidLiteral) {
+    literal.termType = "literal";
+    return literal;
+}
+
+nullLiteral = kwNull {
+    return {
+        literalType: "null"
+    }
+}
+
+invalidLiteral = kwInvalid {
+    return {
+        literalType: "invalid"
+    }
+}
+
+stringLiteral = value:( stringInQuotes / stringInDoubleQuotes ) {
+    return {
+        literalType: "string",
+        value: value
+    }
+}
+
+numberLiteral = value:( number / '*' ) {
+    return {
+        literalType: "number",
+        value: value === '*' ? "infinity" : value
+    }
+}
+
+booleanLiteral = value:(kwTrue / kwFalse) {
+    return {
+        literalType: "boolean",
+        value: value
+    }
+}
+
+/*
     KEYWORDS
 */
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
         / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
-        / kwIf / kwThen / kwElse / kwEndIf
+        / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid
+
+kwNull = "null" _
+
+kwInvalid = "invalid" _
 
 kwIf = "if" _
 
@@ -283,9 +331,9 @@ kwDerive = "derive" _ { return "derive"; }
 
 kwSelf = "self"
 
-kwTrue = "true" _ { return { termType: "true" }}
+kwTrue = "true" _ { return "true"; }
 
-kwFalse = "false" _ { return { termType: "false"}}
+kwFalse = "false" _ { return "false"; }
 
 /*
     OPERATORS
@@ -348,17 +396,11 @@ opRParen = ")" _
 */
 
 stringInQuotes = "'" value:[^']* "'" { 
-    return {
-        termType: "stringInQuotes",
-        value: value.join("")
-    }
+    return value.join("");
 }
 
 stringInDoubleQuotes = "\"" value:[^"]* "\"" { 
-        return {
-            termType: "stringInDoubleQuotes",
-            value: value.join("")
-        }
+        return value.join("");
 }
  
 number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimalPart.join(""); } )? { 
@@ -366,10 +408,7 @@ number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimal
     if(decimalPart !== null) {
         number += "." + decimalPart;
     }
-    return {
-        termType: "number",
-        value: number
-    }
+    return number;
 }
 
 reservedWords = keyword / builtInFunctionNames / opSlimArrow collectionFunctionNames
