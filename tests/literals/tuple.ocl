@@ -1,1 +1,7 @@
-Tuple { name: String = "Viktor", income: Integer = 34, hasEmail: Boolean = true }
+Tuple { 
+    name: String = "Viktor", 
+    income: Integer = 34, 
+    hasEmail: Boolean = true,
+    contacts: Sequence( Tuple ( fullName: String, email: String )),
+    letters: Bag( String )
+}

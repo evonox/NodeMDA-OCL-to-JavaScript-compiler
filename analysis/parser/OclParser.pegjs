@@ -270,12 +270,12 @@ variableDeclarationList = firstVar:variableDeclaration otherVars:( opComma varia
     return [firstVar].concat(otherVars);
 }
 
-variableDeclaration = name:simpleName type:( opColon type:typeDeclaration { return type })? 
+variableDeclaration = name:simpleName typeDefinition:( opColon type:typeDefinition { return type })? 
                     initExpression:(opEqual expression:oclExpression { return expression } )? 
 {
     return {
         variableName: name,
-        type: type,
+        typeDefinition: typeDefinition,
         initExpression: initExpression
     }
 }
@@ -320,12 +320,87 @@ booleanLiteral = value:(kwTrue / kwFalse) {
 }
 
 /*
+    Type definition
+*/
+typeDefinition = typeDef:(pathName / collectionType / tupleType / primitiveType / oclType) {
+    typeDef.termType = "typeDefinition";
+    return typeDef;
+}
+
+pathName = pathname:navigation {
+    return {
+        typeClass: "pathname",
+        pathname: pathname
+    }
+} 
+
+primitiveType = name:(kwBoolean / kwString / kwInteger / kwReal / kwUnlimitedNatural) {
+    return {
+        typeClass: "primitiveType",
+        name: name
+    }
+}
+
+oclType = name:(kwOclAny / kwOclInvalid / kwOclVoid) {
+    return {
+        typeClass: "oclType",
+        name: name
+    }
+}
+
+collectionType = name:collectionTypeIdent opLParen itemType:typeDefinition opRParen {
+    return {
+        typeClass: "collectionType",
+        name: name,
+        itemType: itemType
+    }
+}
+
+collectionTypeIdent = kwBag / kwSet / kwOrderedSet / kwCollection / kwSequence
+
+tupleType = kwTuple opLParen variables:variableDeclarationList? opRParen {
+    return {
+        typeClass: "tupleType",
+        variables: variables === null ? [] : variables
+    }
+}
+
+
+/*
     KEYWORDS
 */
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
         / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
-        / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid / kwTuple
+        / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid / kwTuple / kwBoolean / kwInteger
+        / kwReal / kwString / kwUnlimitedNatural / kwOclAny / kwOclInvalid / kwOclVoid
+        / kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet
+
+kwSet = "Set" _ { return "Set"; }
+
+kwBag = "Bag" _ { return "Bag"; }
+
+kwSequence = "Sequence" _ { return "Sequence"; }
+
+kwCollection = "Collection" _ { return "Collection"; }
+
+kwOrderedSet = "OrderedSet" _ { return "OrderedSet"; }
+
+kwOclAny = "OclAny" _ { return "OclAny"; }
+
+kwOclInvalid = "OclInvalid" _ { return "OclInvalid"; }
+
+kwOclVoid = "OclVoid" _ { return "OclVoid"; }
+
+kwBoolean = "Boolean" _ { return "Boolean"; }
+
+kwInteger = "Integer" _ { return "Integer"; }
+
+kwReal = "Real" _ { return "Real"; }
+
+kwString = "String" _ { return "String"; }
+
+kwUnlimitedNatural = "UnlimitedNatural" _ { return  "UnlimitedNatural"; }
 
 kwTuple = "Tuple" _
 
