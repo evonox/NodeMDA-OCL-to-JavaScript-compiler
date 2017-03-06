@@ -1,0 +1,1 @@
+Tuple { name: String = "Viktor", income: Integer = 34, hasEmail: Boolean = true }

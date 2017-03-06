@@ -253,12 +253,38 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
     OCL LITERALS
 */
 
-literal = primitiveLiteral
-
-primitiveLiteral = literal:(booleanLiteral / numberLiteral / stringLiteral / nullLiteral / invalidLiteral) {
+literal = literal:(primitiveLiteral / tupleLiteral) {
     literal.termType = "literal";
     return literal;
 }
+
+tupleLiteral = kwTuple opLBrace variableList:variableDeclarationList opRBrace {
+    return {
+        literalType: "tuple",
+        variableList: variableList
+    }
+}
+
+variableDeclarationList = firstVar:variableDeclaration otherVars:( opComma variable:variableDeclaration { return variable; })*
+{
+    return [firstVar].concat(otherVars);
+}
+
+variableDeclaration = name:simpleName type:( opColon type:typeDeclaration { return type })? 
+                    initExpression:(opEqual expression:oclExpression { return expression } )? 
+{
+    return {
+        variableName: name,
+        type: type,
+        initExpression: initExpression
+    }
+}
+
+simpleName = identifier // must be done lexical correction
+
+typeDeclaration = identifier // must be derived later
+
+primitiveLiteral = booleanLiteral / numberLiteral / stringLiteral / nullLiteral / invalidLiteral
 
 nullLiteral = kwNull {
     return {
@@ -299,7 +325,9 @@ booleanLiteral = value:(kwTrue / kwFalse) {
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
         / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
-        / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid
+        / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid / kwTuple
+
+kwTuple = "Tuple" _
 
 kwNull = "null" _
 
@@ -341,7 +369,7 @@ kwFalse = "false" _ { return "false"; }
 
 operator = opArrow / opNot / opMult / opDiv / opMinus / opPlus / opLess / opGreater / opLessOrEqual 
         / opGreaterOrEqual / opEqual / opNotEqual / opAnd / opOr / opXor / opImplies / opDoubleColon
-        / opColon / opSlimArrow
+        / opColon / opSlimArrow / opLBrace / opRBrace
 
 opSlimArrow = "->" _
 
@@ -390,6 +418,10 @@ opImplies = "implies" _
 opLParen = "(" _
 
 opRParen = ")" _
+
+opLBrace = "{" _
+
+opRBrace = "}" _
 
 /*
     OTHER LEXICAL ELEMENTS
