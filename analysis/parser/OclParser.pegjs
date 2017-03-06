@@ -253,10 +253,33 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
     OCL LITERALS
 */
 
-literal = literal:(primitiveLiteral / tupleLiteral) {
+literal = literal:(primitiveLiteral / tupleLiteral / collectionLiteral) {
     literal.termType = "literal";
     return literal;
 }
+
+collectionLiteral = collectionType:collectionTypeIdent opLBrace items:collectionLiteralParts? opRBrace {
+    return {
+        literalType: "collection",
+        collectionType: collectionType,
+        items: items
+    }
+}
+
+collectionLiteralParts = first:colletionLiteralPart other:( opComma part:colletionLiteralPart { return part; })* {
+    return [first].concat(other);
+}
+
+colletionLiteralPart = collectionRange / oclExpression
+
+collectionRange = first:oclExpression opDoubleDot last:oclExpression {
+    return {
+        partType: "range",
+        first: first,
+        last: last
+    }
+}
+
 
 tupleLiteral = kwTuple opLBrace variableList:variableDeclarationList opRBrace {
     return {
@@ -281,8 +304,6 @@ variableDeclaration = name:simpleName typeDefinition:( opColon type:typeDefiniti
 }
 
 simpleName = identifier // must be done lexical correction
-
-typeDeclaration = identifier // must be derived later
 
 primitiveLiteral = booleanLiteral / numberLiteral / stringLiteral / nullLiteral / invalidLiteral
 
@@ -444,7 +465,9 @@ kwFalse = "false" _ { return "false"; }
 
 operator = opArrow / opNot / opMult / opDiv / opMinus / opPlus / opLess / opGreater / opLessOrEqual 
         / opGreaterOrEqual / opEqual / opNotEqual / opAnd / opOr / opXor / opImplies / opDoubleColon
-        / opColon / opSlimArrow / opLBrace / opRBrace
+        / opColon / opSlimArrow / opLBrace / opRBrace / opDoubleDot / opDot
+
+opDoubleDot = ".."
 
 opSlimArrow = "->" _
 
