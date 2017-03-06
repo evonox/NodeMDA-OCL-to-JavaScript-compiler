@@ -33,7 +33,7 @@ module.exports = (function() {
 
         peg$FAILED = {},
 
-        peg$startRuleFunctions = { OCL: peg$parseOCL },
+        peg$startRuleFunctions = { OCL: peg$parseOCL, oclExpression: peg$parseoclExpression },
         peg$startRuleFunction  = peg$parseOCL,
 
         peg$c0 = function(data) { return data; },
@@ -997,6 +997,14 @@ module.exports = (function() {
           }
         }
       }
+
+      return s0;
+    }
+
+    function peg$parseoclExpression() {
+      var s0;
+
+      s0 = peg$parsensExpr0();
 
       return s0;
     }

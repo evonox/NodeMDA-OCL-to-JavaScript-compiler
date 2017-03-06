@@ -1,6 +1,7 @@
 # Custom
 *.txt
 publish.bat
+test-results
 
 # Logs
 logs

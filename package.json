@@ -4,7 +4,7 @@
   "description": "This package parses OCL and compiles the constraints into JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node run-tests.js"
   },
   "keywords": [
     "js",
