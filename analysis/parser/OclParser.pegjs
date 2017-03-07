@@ -449,71 +449,73 @@ keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / 
         / kwReal / kwString / kwUnlimitedNatural / kwOclAny / kwOclInvalid / kwOclVoid
         / kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet / kwLet / kwIn
 
-kwLet = "let" __
+kwLet = "let" KW_SEP
 
-kwIn = "in" __
+kwIn = "in" KW_SEP
 
-kwSet = "Set" _ { return "Set"; }
+kwSet = "Set" KW_SEP { return "Set"; }
 
-kwBag = "Bag" _ { return "Bag"; }
+kwBag = "Bag" KW_SEP { return "Bag"; }
 
-kwSequence = "Sequence" _ { return "Sequence"; }
+kwSequence = "Sequence" KW_SEP { return "Sequence"; }
 
-kwCollection = "Collection" _ { return "Collection"; }
+kwCollection = "Collection" KW_SEP { return "Collection"; }
 
-kwOrderedSet = "OrderedSet" _ { return "OrderedSet"; }
+kwOrderedSet = "OrderedSet" KW_SEP { return "OrderedSet"; }
 
-kwOclAny = "OclAny" _ { return "OclAny"; }
+kwOclAny = "OclAny" KW_SEP { return "OclAny"; }
 
-kwOclInvalid = "OclInvalid" _ { return "OclInvalid"; }
+kwOclInvalid = "OclInvalid" KW_SEP { return "OclInvalid"; }
 
-kwOclVoid = "OclVoid" _ { return "OclVoid"; }
+kwOclVoid = "OclVoid" KW_SEP { return "OclVoid"; }
 
-kwBoolean = "Boolean" _ { return "Boolean"; }
+kwBoolean = "Boolean" KW_SEP { return "Boolean"; }
 
-kwInteger = "Integer" _ { return "Integer"; }
+kwInteger = "Integer" KW_SEP { return "Integer"; }
 
-kwReal = "Real" _ { return "Real"; }
+kwReal = "Real" KW_SEP { return "Real"; }
 
-kwString = "String" _ { return "String"; }
+kwString = "String" KW_SEP { return "String"; }
 
-kwUnlimitedNatural = "UnlimitedNatural" _ { return  "UnlimitedNatural"; }
+kwUnlimitedNatural = "UnlimitedNatural" KW_SEP { return  "UnlimitedNatural"; }
 
-kwTuple = "Tuple" _
+kwTuple = "Tuple" KW_SEP
 
-kwNull = "null" _
+kwNull = "null" KW_SEP
 
-kwInvalid = "invalid" _
+kwInvalid = "invalid" KW_SEP
 
-kwIf = "if" _
+kwIf = "if" KW_SEP
 
-kwThen = "then" _
+kwThen = "then" KW_SEP
 
-kwElse = "else" _
+kwElse = "else" KW_SEP
 
-kwEndIf = "endif" _
+kwEndIf = "endif" KW_SEP
 
-kwPackage = "package" _
+kwPackage = "package" KW_SEP
 
-kwEndPackage = "endpackage" _
+kwEndPackage = "endpackage" KW_SEP
 
-kwContext = "context" _
+kwContext = "context" KW_SEP
 
-kwPrecondition = "pre"  _  { return "pre"; }
+kwPrecondition = "pre"  KW_SEP  { return "pre"; }
 
-kwPostcondition = "post"  _ { return "post"; }
+kwPostcondition = "post"  KW_SEP { return "post"; }
 
-kwInvariant = "inv" _ { return "inv"; }
+kwInvariant = "inv" KW_SEP { return "inv"; }
 
-kwBody = "body" _ { return "body"; }
+kwBody = "body" KW_SEP { return "body"; }
 
-kwDerive = "derive" _ { return "derive"; }
+kwDerive = "derive" KW_SEP { return "derive"; }
 
-kwSelf = "self"
+kwSelf = "self" KW_SEP
 
-kwTrue = "true" _ { return "true"; }
+kwTrue = "true" KW_SEP { return "true"; }
 
-kwFalse = "false" _ { return "false"; }
+kwFalse = "false" KW_SEP { return "false"; }
+
+KW_SEP = __ / & ( operator )
 
 /*
     OPERATORS
@@ -539,7 +541,7 @@ opSemiColon = ";" _
 
 opPrevValue = "@pre" _
 
-opDot = "."
+opDot = "." _
 
 opArrow = "->" _
 
