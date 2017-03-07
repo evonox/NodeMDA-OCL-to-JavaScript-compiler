@@ -147,7 +147,8 @@ nsExpr8 = opNot left:nsExpr9 { return { operator: "not", left: left }; }
 nsExpr9 = callExpression
         / nsExpr10
 
-nsExpr10 = nsExpr11 // TODO: Preparing for @pre keyword support
+nsExpr10 = left:nsExpr11 opPre { return { operator: "pre", left: left }; } 
+        / nsExpr11
 
 nsExpr11 = letExpression
         / nsExpr12
@@ -544,7 +545,7 @@ KW_SEP = __ / & ( operator )
     OPERATORS
 */
 
-operator = opVerticalLine / opDoubleDot / opComma / opDoubleColon / opColon / opSemiColon / opPrevValue
+operator = opVerticalLine / opDoubleDot / opComma / opDoubleColon / opColon / opSemiColon / opPre
         / opDot / opArrow / opNot / opMult / opDiv / opMinus / opPlus / opLess / opGreater / opLessOrEqual
         / opGreaterOrEqual / opEqual / opNotEqual / opAnd / opOr / opXor / opImplies / opLParen / opRParen
         / opLBrace / opRBrace
@@ -561,7 +562,7 @@ opColon = ":" _
 
 opSemiColon = ";" _
 
-opPrevValue = "@pre" _
+opPre = "@pre" _
 
 opDot = "." _
 
