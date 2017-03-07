@@ -2,6 +2,7 @@
 *.txt
 publish.bat
 test-results
+test-js
 
 # Logs
 logs

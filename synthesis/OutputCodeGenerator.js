@@ -142,5 +142,6 @@ function generateCode(cmModel, outputDir, fileExtension) {
 
 module.exports = {
     initTemplates: initTemplates,
-    generateCode: generateCode,
+    generateCodeForRule: processExpression,
+    generateCode: generateCode
 }

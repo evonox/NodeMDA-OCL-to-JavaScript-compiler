@@ -2,6 +2,6 @@ Tuple {
     name: String = "Viktor", 
     income: Integer = 34, 
     hasEmail: Boolean = true,
-    contacts: Sequence( Tuple ( fullName: String, email: String )),
-    _'true čeřiď': Bag( String )
+    contacts: Sequence( Tuple ( fullName: String, email: String )) = 2 * 55 + 4,
+    _'true čeřiď': Bag( String ) = Bag{ "Jedna", "Dvě", "Tři", "Čtyři" }
 }

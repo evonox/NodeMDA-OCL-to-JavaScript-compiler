@@ -455,7 +455,7 @@ tupleType = kwTuple opLParen variables:variableDeclarationList? opRParen {
 
 
 /*
-    KEYWORDS
+    RESTRICTED KEYWORDS
 */
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
@@ -496,7 +496,7 @@ kwUnlimitedNatural = "UnlimitedNatural" KW_SEP { return  "UnlimitedNatural"; }
 kwTuple = "Tuple" KW_SEP
 
 /*
-    Keyword
+    RESERVED KEYWORDS
 */
 
 kwLet = "let" KW_SEP
@@ -615,7 +615,7 @@ stringInQuotes = !('_') "'" value:StringChar* "'" {
 }
 
 stringInDoubleQuotes =  "\"" value:StringChar* "\"" { 
-        return value.join("");
+    return value.join("");
 }
  
 number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimalPart.join(""); } )? { 
@@ -647,7 +647,7 @@ UnicodeChar = value:([A-Z] / [_] / [$] / [a-z] / [\xC0-\xD6] / [\xD8-\xF6] / [\x
 
 // Taken from URL: http://stackoverflow.com/questions/33947960/allowing-for-quotes-and-unicode-in-peg-js-grammar-definitions
 StringChar
-= !("'" / '"') unescaped
+= !("'" / '"') value:unescaped { return value; }
   / escape
     sequence:(
         '"'
@@ -669,7 +669,7 @@ quotation_mark = '"'
 unescaped      = [\x20-\x21\x23-\x5B\x5D-\uFFFF]
 
 digit = [0-9]
-HEXDIG = digit / [A-Z]
+HEXDIG = digit / [A-F]
 
 _ = [ \n\r\t]*
 __ = [ \n\r\t]+

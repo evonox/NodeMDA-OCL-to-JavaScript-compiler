@@ -1,0 +1,16 @@
+[
+{{#each items}}
+{{#if partType}}
+...(function() {
+    let result = [];
+    for(let i = ({{>expression first}}); i &lt;= ({{>expression last}}); i++) {
+        result.push(i);
+    }
+    return result;
+})()
+{{else}}
+    {{>expression}}
+{{/if}}
+{{#if @last}}{{else}},{{/if}}
+{{/each}}
+]

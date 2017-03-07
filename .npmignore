@@ -1,7 +1,11 @@
 *.ocl
 *.txt
 *.bat
+*.pegjs
 node_modules
 test_ocl_files
+test-js
+test-results
+tests
 .gitignore
 .npmignore

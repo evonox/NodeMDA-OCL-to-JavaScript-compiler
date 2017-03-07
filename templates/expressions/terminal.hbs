@@ -1,10 +1,6 @@
 {{#switch termType}}
-    {{#case "false"}} {{> falseValue}} {{/case}}
+    {{#case "literal"}} {{> literal}} {{/case}}
     {{#case "navigation"}} {{> navigation}} {{/case}}
-    {{#case "number"}} {{> number}} {{/case}}
-    {{#case "stringInDoubleQuotes"}} {{> stringInDoubleQuotes}} {{/case}}
-    {{#case "stringInQuotes"}} {{> stringInQuotes}} {{/case}}
-    {{#case "true"}} {{> trueValue}} {{/case}}
     {{#case "builtInFunction"}} {{> builtInFunction }} {{/case}}
     {{#case "collectionFunction"}} {{> collectionFunction }} {{/case}}
 {{/switch}}

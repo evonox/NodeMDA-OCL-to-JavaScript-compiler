@@ -1,0 +1,6 @@
+{
+{{#each variableList}}
+    "{{ variableName }}": {{#xif 'initExpression === null'}}null{{else}} ({{> expression initExpression}}){{/xif}}
+    {{#if @last}}{{else}},{{/if}}
+{{/each}}
+}

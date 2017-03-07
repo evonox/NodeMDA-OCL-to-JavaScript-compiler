@@ -1,0 +1,8 @@
+{{#switch literalType}}
+    {{#case "boolean"}} {{> booleanLiteral }} {{/case}}
+    {{#case "number"}} {{> numberLiteral }} {{/case}}
+    {{#case "string"}} {{> string }} {{/case}}
+    {{#case "tuple"}} {{> tuple }} {{/case}}
+    {{#case "collection" }} {{> collection }} {{/case}}
+    {{#case "enumeration"}} {{> enumerationLiteral }} {{/case}}
+{{/switch}}
