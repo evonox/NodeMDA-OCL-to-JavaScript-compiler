@@ -197,7 +197,7 @@ nsParenthisExpression = opLParen left:oclExpression opRParen {
     BUILT-IN FUNCTIONS
 */
 
-builtInFunctionChain = &((opDot builtInFunctionNames)/ (opSlimArrow collectionFunctionNames)) 
+builtInFunctionChain = &((opDot builtInFunctionNames)/ (opArrow collectionFunctionNames)) 
                         functions:(builtInFunction  / collectionFunction)+ 
 {
     for(let i = 1; i < functions.length; i++) {
@@ -220,7 +220,7 @@ builtInFunction = opDot functionName:builtInFunctionNames args:methodArguments {
 }
 
 
-collectionFunction = opSlimArrow functionName:collectionFunctionNames args:methodArguments {
+collectionFunction = opArrow functionName:collectionFunctionNames args:methodArguments {
     return {
         firstArgument: null,
         termType: "collectionFunction",
@@ -287,11 +287,11 @@ featureCall = "TODO"
 
 loopExpression = iteratorExpression  / iterateExpression
 
-iteratorExpression = nsExpr12 opSlimArrow simpleName opLParen iteratee opRParen
+iteratorExpression = nsExpr12 opArrow simpleName opLParen iteratee opRParen
 
 iteratee = ( variableDeclaration? (opComma variableDeclaration)? opVerticalLine )? oclExpression
 
-iterateExpression = nsExpr12  opSlimArrow "iterate" opLParen (variableDeclaration opSemiColon )?
+iterateExpression = nsExpr12  opArrow "iterate" opLParen (variableDeclaration opSemiColon )?
             variableDeclaration opVerticalLine oclExpression opRParen
 
 /*
@@ -428,13 +428,6 @@ primitiveType = name:(kwBoolean / kwString / kwInteger / kwReal / kwUnlimitedNat
     }
 }
 
-pathName = pathname:navigation {
-    return {
-        typeClass: "pathname",
-        pathname: pathname
-    }
-} 
-
 oclType = name:(kwOclAny / kwOclInvalid / kwOclVoid) {
     return {
         typeClass: "oclType",
@@ -551,15 +544,14 @@ KW_SEP = __ / & ( operator )
     OPERATORS
 */
 
-operator = opArrow / opNot / opMult / opDiv / opMinus / opPlus / opLess / opGreater / opLessOrEqual 
-        / opGreaterOrEqual / opEqual / opNotEqual / opAnd / opOr / opXor / opImplies / opDoubleColon
-        / opColon / opSlimArrow / opLBrace / opRBrace / opDoubleDot / opDot / opVerticalLine / opSemiColon
+operator = opVerticalLine / opDoubleDot / opComma / opDoubleColon / opColon / opSemiColon / opPrevValue
+        / opDot / opArrow / opNot / opMult / opDiv / opMinus / opPlus / opLess / opGreater / opLessOrEqual
+        / opGreaterOrEqual / opEqual / opNotEqual / opAnd / opOr / opXor / opImplies / opLParen / opRParen
+        / opLBrace / opRBrace
 
 opVerticalLine = "|" _
 
 opDoubleDot = ".." _
-
-opSlimArrow = "->" _
 
 opComma = "," _
 
@@ -633,13 +625,17 @@ number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimal
     return number;
 }
 
-reservedWords = restrictedKeywords / keyword / builtInFunctionNames / opSlimArrow collectionFunctionNames
+reservedWords = restrictedKeywords / keyword / builtInFunctionNames / opArrow collectionFunctionNames
+
+pathName = first:simpleName other:( name:simpleName { return name; })* unreservedName:unreservedSimpleName? {
+    return [first].concat(other).concat(unreservedName === null ? []: [unreservedName]);
+}
+unreservedSimpleName = simpleName / restrictedKeywords
 
 simpleName = "_'" data:[^']+ "'" { return data.join(""); }
             / identifier
 
-
-identifier = !(reservedWords) first:letter other:(digit / letter)* _
+identifier = !(reservedWords) first:letter other:(digit / letter)* (KW_SEP / _)
 { return first + other.join(""); }
 
 letter = [A-Za-z_]
