@@ -88,36 +88,74 @@ oclRuleType = kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive
 
 oclRuleBody = oclExpression
 
+oclExpression = nsOperatorExpression
+
 /*
-    OCL EXPRESSION RULES
+    OCL OPERATOR EXPRESSION RULES
 */
 
-oclExpression = letExpression / callExpression / nsExpr0 
+nsOperatorExpression = nsExpr0
 
-nsExpr0 = left:nsExpr1 term:nsExpr0_ { return attachLeft(left, term); }
-nsExpr0_ = opImplies term:nsExpr1 { return binOp("implies", term, null); }
+nsExpr0 = left:nsExpr1 term:nsExpr_0 { return attachLeft(left, term); }
+nsExpr_0 = opImplies term:nsExpr1 { return binOp("implies", term, null); }
         / nsExpr1?
 
-nsExpr1 = left:nsExpr2 term:nsExpr1_ { return attachLeft(left, term); }
-nsExpr1_ = 
-    opAnd term:nsExpr2 { return binOp("and", term, null); }
-    / opOr term:nsExpr2 { return binOp("or", term, null); }
-    / opXor term:nsExpr2 { return binOp("xor", term, null); }
-    / nsExpr2?
+nsExpr1 = left:nsExpr2 term:nsExpr_1 { return attachLeft(left, term); }
+nsExpr_1 = opXor term:nsExpr2 { return binOp("xor", term, null); }
+        / nsExpr2?
 
-nsExpr2 = left:nsExpr3 term:nsExpr2_ { return attachLeft(left, term); }
-nsExpr2_ = opEqual term:nsExpr3 { return binOp("equal", term, null); }
-        / opNotEqual term:nsExpr3 { return binOp("notEqual", term, null); }
+nsExpr2 = left:nsExpr3 term:nsExpr_2 { return attachLeft(left, term); }
+nsExpr_2 = opOr term:nsExpr3 { return binOp("or", term, null); }
         / nsExpr3?
 
-nsExpr3 = left:nsExpr3a term:nsExpr3_ { return attachLeft(left, term); }
-nsExpr3_ = !(opNotEqual) opLess term:nsExpr3a { return binOp("less", term, null); }
-        / opGreater term:nsExpr3a { return binOp("greater", term, null); }
-        / opLessOrEqual term:nsExpr3a { return binOp("lessOrEqual", term, null); }
-        / opGreaterOrEqual term:nsExpr3a { return binOp("greaterOrEqual", term, null); }
-        / nsExpr3a?
+nsExpr3 = left:nsExpr4 term:nsExpr_3 { return attachLeft(left, term); }
+nsExpr_3 = opAnd term:nsExpr4 { return binOp("and", term, null); }
+        / nsExpr4?
 
-nsExpr3a = kwIf condition:oclExpression kwThen thenExpr:oclExpression kwElse elseExpr:oclExpression kwEndIf
+nsExpr4 = left:nsExpr5 term:nsExpr_4 { return attachLeft(left, term); }
+nsExpr_4 = opEqual term:nsExpr5 { return binOp("equal", term, null); }
+        / opNotEqual term:nsExpr5 { return binOp("notEqual", term, null); }
+        / nsExpr5?
+
+nsExpr5 = left:nsExpr6 term:nsExpr_5 { return attachLeft(left, term); }
+nsExpr_5 = !(opNotEqual) opLess term:nsExpr6 { return binOp("less", term, null); }
+        / opGreater term:nsExpr6 { return binOp("greater", term, null); }
+        / opLessOrEqual term:nsExpr6 { return binOp("lessOrEqual", term, null); }
+        / opGreaterOrEqual term:nsExpr6 { return binOp("greaterOrEqual", term, null); }
+        / nsExpr6?
+
+nsExpr6 = 
+    opMinus leftTerm:nsExpr9 term:nsExpr_6 { // TODO Complete last Expr 
+        var left = { operator: "negate", "left": leftTerm };
+        if(term === null)  return left; else { term.left = left; return term; }
+    }
+    / left:nsExpr7 term:nsExpr_6 { return attachLeft(left, term); }
+
+nsExpr_6 = opPlus term:nsExpr7 subtree:nsExpr_6 { return binOp("add", term, subtree); }
+        / opMinus term:nsExpr7 subtree:nsExpr_6 { return binOp("sub", term, subtree); }
+        / nsExpr7?
+
+nsExpr7 = left:nsExpr8  term:nsExpr_7 { return attachLeft(left, term); }
+nsExpr_7 = opMult term:nsExpr8 subtree:nsExpr_7 { return binOp("mult", term, subtree); }
+        / opDiv term:nsExpr8 subtree:nsExpr_7 { return binOp("div", term, subtree); }
+        / nsExpr8?
+
+nsExpr8 = opNot left:nsExpr9 { return { operator: "not", left: left }; }
+        / opLParen opMinus left:nsExpr9 opRParen { return { operator: "negate", left: left }; }
+        / nsExpr9
+
+nsExpr9 = callExpression
+        / nsExpr10
+
+nsExpr10 = nsExpr11 // TODO: Preparing for @pre keyword support
+
+nsExpr11 = letExpression
+        / nsExpr12
+
+nsExpr12 = data:( literal / variableExpression / nsParenthisExpression / nsIfExpression / navigation ) _    
+{ return data; }
+
+nsIfExpression = kwIf condition:oclExpression kwThen thenExpr:oclExpression kwElse elseExpr:oclExpression kwEndIf
     {
         return {
             operator: "if",
@@ -126,30 +164,16 @@ nsExpr3a = kwIf condition:oclExpression kwThen thenExpr:oclExpression kwElse els
             elseExpression: elseExpr
         }
     }
-    / nsExpr4?
 
-nsExpr4 = 
-    opMinus leftTerm:nsExpr7 term:nsExpr4_ { 
-        var left = { operator: "negate", "left": leftTerm };
-        if(term === null)  return left; else { term.left = left; return term; }
+// TODO - Is Function Chain necessary????? It might be expressed in callExpression
+nsParenthisExpression = opLParen left:oclExpression opRParen {
+    return {
+        operator: "parenthesis",
+        left: left
     }
-    / left:nsExpr5 term:nsExpr4_ { return attachLeft(left, term); }
+}
 
-
-nsExpr4_ = opPlus term:nsExpr5 subtree:nsExpr4_ { return binOp("add", term, subtree); }
-        / opMinus term:nsExpr5 subtree:nsExpr4_ { return binOp("sub", term, subtree); }
-        / nsExpr5?
-
-nsExpr5 = left:nsExpr6 term:nsExpr5_ { return attachLeft(left, term); }
-nsExpr5_ = opMult term:nsExpr6 subtree:nsExpr5_ { return binOp("mult", term, subtree); }
-        / opDiv term:nsExpr6 subtree:nsExpr5_ { return binOp("div", term, subtree); }
-        / nsExpr6?
-
-nsExpr6 = opNot left:nsExpr7 { return { operator: "not", left: left }; }
-        / opLParen opMinus left:nsExpr7 opRParen { return { operator: "negate", left: left }; }
-        / nsExpr7
-
-nsExpr7 = opLParen left:oclExpression opRParen builtInFunction:builtInFunctionChain? { 
+    /*builtInFunction:builtInFunctionChain? { 
             var term = {
                 operator: "parenthesis",
                 left: left
@@ -160,15 +184,14 @@ nsExpr7 = opLParen left:oclExpression opRParen builtInFunction:builtInFunctionCh
             }
             return term;
         }
-        / term:expressionLiteral builtInFunction:builtInFunctionChain? {
+        / term:oclExpression builtInFunction:builtInFunctionChain? {
             if(builtInFunction !== null) {
                 builtInFunction.first.firstArgument = term;
                 term = builtInFunction.last;
             }
             return term;
-        }
+        }*/
 
-expressionLiteral = data:( literal / navigation ) _ { return data; }
 
 /*
     BUILT-IN FUNCTIONS
@@ -252,22 +275,23 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
 variableExpression = kwSelf / simpleName
 
 /*
-    Call expression
+    Call expression - TODO Complete for FeatureCalls
 */
 
-callExpression = loopExpression
+callExpression = featureCall / loopExpression
+featureCall = "TODO"
 
 /*
     Loop expressions - TODO - complete
 */
 
-loopExpression = iteratorExpression / iterateExpression
+loopExpression = iteratorExpression  / iterateExpression
 
-iteratorExpression = nsExpr0 opSlimArrow simpleName opLParen iteratee opRParen
+iteratorExpression = nsExpr12 opSlimArrow simpleName opLParen iteratee opRParen
 
 iteratee = ( variableDeclaration? (opComma variableDeclaration)? opVerticalLine )? oclExpression
 
-iterateExpression = nsExpr0  opSlimArrow "iterate" opLParen (variableDeclaration opSemiColon )?
+iterateExpression = nsExpr12  opSlimArrow "iterate" opLParen (variableDeclaration opSemiColon )?
             variableDeclaration opVerticalLine oclExpression opRParen
 
 /*
@@ -393,7 +417,6 @@ booleanLiteral = value:(kwTrue / kwFalse) {
 /*
     Type definition
 */
-
 
 typeDefinition = typeDef:(pathName / collectionType / tupleType / primitiveType / oclType) {
     typeDef.termType = "typeDefinition";
