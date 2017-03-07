@@ -3,17 +3,25 @@ PLAN PRACE - Literals
 1. Doladit lexikalni elementy dle standardu OCL - definovat plan
     1. **Check, which operators support left associativity - EXAMINE AND CHANGE GRAMMAR**
     2. Develop PDF with not supported OCL lang features
-        1. OclMessage support + coexisting operators
+        1. OclMessage support + coexisting operators - zvazit to jeste pro volani operaci
 2. Tuning UP AST and grammar
     1. Complete FeatureCall expression
     2. Complete AST for LoopExpressions
     3. Check AST
 3. Develop the first handlebars rendering of expressions, 
     2. OperatorExpressions
-    3. **RightToLeftAssocConverter** AST post-processing
+    3. **RightToLeftAssocConverter** AST post-processing - from Robot Karel
 4. Study environment issue for UML Model Queries, needed for type resolving and type checking
 5. Verify info of nested comments and add not supported - cannot be done by lexical analysis
 6. Add no support for allInstances method
+
+STANDARD OCL LIBRARY
+====================
+1. Dokonceni parametru a result values
+2. Promitnuti do PEGJS gramatiky
+3. Zavedeni iterator methods do gramatiky
+4. Prozkoumat well-formedness generovaneho JS kodu
+
 
 SKIPPED TEMPLATES:
 ==================
