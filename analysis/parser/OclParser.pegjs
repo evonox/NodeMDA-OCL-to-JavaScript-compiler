@@ -466,13 +466,12 @@ tupleType = kwTuple opLParen variables:variableDeclarationList? opRParen {
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
         / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
-        / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid / kwTuple / kwBoolean / kwInteger
-        / kwReal / kwString / kwUnlimitedNatural / kwOclAny / kwOclInvalid / kwOclVoid
-        / kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet / kwLet / kwIn / kwStatic
+        / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid /  kwLet / kwIn / kwStatic
 
-kwLet = "let" KW_SEP
-
-kwIn = "in" KW_SEP
+restrictedKeywords = kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet
+                    / kwOclAny / kwOclInvalid / kwOclVoid
+                    / kwBoolean / kwInteger / kwReal / kwUnlimitedNatural / kwString
+                    / kwTuple
 
 kwSet = "Set" KW_SEP { return "Set"; }
 
@@ -501,6 +500,14 @@ kwString = "String" KW_SEP { return "String"; }
 kwUnlimitedNatural = "UnlimitedNatural" KW_SEP { return  "UnlimitedNatural"; }
 
 kwTuple = "Tuple" KW_SEP
+
+/*
+    Keyword
+*/
+
+kwLet = "let" KW_SEP
+
+kwIn = "in" KW_SEP
 
 kwStatic = "static" KW_SEP
 
@@ -626,7 +633,7 @@ number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimal
     return number;
 }
 
-reservedWords = keyword / builtInFunctionNames / opSlimArrow collectionFunctionNames
+reservedWords = restrictedKeywords / keyword / builtInFunctionNames / opSlimArrow collectionFunctionNames
 
 simpleName = "_'" data:[^']+ "'" { return data.join(""); }
             / identifier
