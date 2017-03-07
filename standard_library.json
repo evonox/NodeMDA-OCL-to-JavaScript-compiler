@@ -1,174 +1,636 @@
 {
     "OclAny": {
-        "=": [],
-        "<>": [],
-        "oclAsSet": [],
-        "oclIsNew": [],
-        "oclIsUndefined": [],
-        "oclIsInvalid": [],
-        "oclAsType": [],
-        "oclIsTypeOf": [],
-        "oclIsKindOf": [],
-        "oclType": [],
-        "oclLocale": []
+        "=": {
+            "parameters": [
+                "OclAny"
+            ],
+            "returnType": "Boolean"
+        },
+        "<>": {
+            "parameters": [
+                "OclAny"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclAsSet": {
+            "parameters": [],
+            "returnType": "Set"
+        },
+        "oclIsNew": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclIsUndefined": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclIsInvalid": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclAsType": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "T"
+        },
+        "oclIsTypeOf": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclIsKindOf": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclType": {
+            "parameters": [],
+            "returnType": "Classifier"
+        },
+        "oclLocale": {
+            "parameters": [],
+            "returnType": "String"
+        }
     },
     "OclVoid": {
-        "=": [],
-        "<>": [],
-        "oclAsSet": [],
-        "oclAsType": [],
-        "oclIsInvalid": [],
-        "oclIsKindOf": [],
-        "oclIsNew": [],
-        "oclIsTypeOf": [],
-        "oclIsUndefined": [],
-        "oclType": []
+        "=": {
+            "parameters": [
+                "OclAny"
+            ],
+            "returnType": "Boolean"
+        },
+        "<>": {
+            "parameters": [
+                "OclAny"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclAsSet": {
+            "parameters": [],
+            "returnType": "Set"
+        },
+        "oclAsType": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "T"
+        },
+        "oclIsInvalid": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclIsKindOf": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclIsNew": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclIsTypeOf": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclIsUndefined": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclType": {
+            "parameters": [],
+            "returnType": "Classifier"
+        }
     },
     "OclInvalid": {
-        "=": [],
-        "<>": [],
-        "oclAsSet": [],
-        "oclAsType": [],
-        "oclIsInvalid": [],
-        "oclIsKindOf": [],
-        "oclIsNew": [],
-        "oclIsTypeOf": [],
-        "oclIsUndefined": [],
-        "oclType": []
+        "=": {
+            "parameters": [
+                "OclAny"
+            ],
+            "returnType": "Boolean"
+        },
+        "<>": {
+            "parameters": [
+                "OclAny"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclAsSet": {
+            "parameters": [],
+            "returnType": "Set"
+        },
+        "oclAsType": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "T"
+        },
+        "oclIsInvalid": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclIsKindOf": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclIsNew": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclIsTypeOf": {
+            "parameters": [
+                "Classifier"
+            ],
+            "returnType": "Boolean"
+        },
+        "oclIsUndefined": {
+            "parameters": [],
+            "returnType": "Boolean"
+        },
+        "oclType": {
+            "parameters": [],
+            "returnType": "Classifier"
+        }
     },
     "Real": {
-        "abs": [],
-        "floor": [],
-        "round": [],
-        "max": [],
-        "min": [],
-        "toString": []
+        "abs": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "floor": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "round": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "max": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "min": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toString": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "Integer": {
-        "abs": [],
-        "div": [],
-        "mod": [],
-        "max": [],
-        "min": [],
-        "toString": []
+        "abs": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "div": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "mod": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "max": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "min": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toString": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "String": {
-        "size": [],
-        "concat": [],
-        "substring": [],
-        "toInteger": [],
-        "toReal": [],
-        "toUpperCase": [],
-        "toLowerCase": [],
-        "indexOf": [],
-        "equalsIgnoreCase": [],
-        "at": [],
-        "characters": [],
-        "toBoolean": []
+        "size": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "concat": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "substring": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toInteger": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toReal": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toUpperCase": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toLowerCase": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "indexOf": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "equalsIgnoreCase": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "at": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "characters": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toBoolean": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "Boolean": {
-        "toString": []
+        "toString": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "UnlimitedNatural": {
-        "div": [],
-        "mod": [],
-        "max": [],
-        "min": [],
-        "toInteger": [],
-        "toString": []
+        "div": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "mod": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "max": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "min": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toInteger": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "toString": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "Collection": {
-        "=": [],
-        "<>": [],
-        "size": [],
-        "includes": [],
-        "excludes": [],
-        "count": [],
-        "includesAll": [],
-        "excludesAll": [],
-        "isEmpty": [],
-        "notEmpty": [],
-        "max": [],
-        "min": [],
-        "sum": [],
-        "product": [],
-        "selectByKind": [],
-        "selectByType": [],
-        "asSet": [],
-        "asOrderedSet": [],
-        "asSequence": [],
-        "asBag": [],
-        "flatten": []
+        "=": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "<>": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "size": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "includes": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "excludes": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "count": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "includesAll": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "excludesAll": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "isEmpty": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "notEmpty": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "max": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "min": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "sum": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "product": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByKind": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByType": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "asSet": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "asOrderedSet": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "asSequence": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "asBag": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "flatten": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "Set": {
-        "union": [],
-        "=": [],
-        "intersection": [],
-        "-": [],
-        "including": [],
-        "excluding": [],
-        "symmetricDifference": [],
-        "count": [],
-        "flatten": [],
-        "selectByKind": [],
-        "selectByType": []
+        "union": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "=": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "intersection": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "-": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "including": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "excluding": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "symmetricDifference": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "count": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "flatten": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByKind": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByType": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "OrderedSet": {
-        "append": [],
-        "prepend": [],
-        "insertAt": [],
-        "subOrderedSet": [],
-        "at": [],
-        "indexOf": [],
-        "first": [],
-        "last": [],
-        "reverse": [],
-        "sum": [],
-        "selectByKind": [],
-        "selectByType": []
+        "append": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "prepend": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "insertAt": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "subOrderedSet": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "at": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "indexOf": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "first": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "last": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "reverse": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "sum": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByKind": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByType": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "Bag": {
-        "=": [],
-        "union": [],
-        "intersection": [],
-        "including": [],
-        "excluding": [],
-        "count": [],
-        "flatten": [],
-        "selectByKind": [],
-        "selectByType": [],
+        "=": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "union": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "intersection": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "including": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "excluding": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "count": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "flatten": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByKind": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByType": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "Sequence": {
-        "count": [],
-        "=": [],
-        "union": [],
-        "flatten": [],
-        "append": [],
-        "prepend": [],
-        "insertAt": [],
-        "subSequence": [],
-        "at": [],
-        "indexOf": [],
-        "first": [],
-        "last": [],
-        "including": [],
-        "excluding": [],
-        "reverse": [],
-        "sum": [],
-        "selectByKind": [],
-        "selectByType": []
+        "count": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "=": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "union": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "flatten": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "append": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "prepend": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "insertAt": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "subSequence": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "at": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "indexOf": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "first": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "last": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "including": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "excluding": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "reverse": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "sum": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByKind": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "selectByType": {
+            "parameters": [],
+            "returnType": ""
+        }
     },
     "iteratorMethods": {
-        "any": [],
-        "closure": [],
-        "collect": [],
-        "collectNested": [],
-        "exists": [],
-        "forAll": [],
-        "isUnique": [],
-        "one": [],
-        "reject": [],
-        "select": [],
-        "sortedBy": []
+        "any": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "closure": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "collect": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "collectNested": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "exists": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "forAll": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "isUnique": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "one": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "reject": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "select": {
+            "parameters": [],
+            "returnType": ""
+        },
+        "sortedBy": {
+            "parameters": [],
+            "returnType": ""
+        }
     }
 }
