@@ -37,7 +37,7 @@ package = kwPackage path:elementPath contexts:context+ kwEndPackage {
     }
 }
 
-elementPath = first:identifier other:( opDoubleColon data:identifier { return data; } )* _
+elementPath = first:simpleName other:( opDoubleColon data:simpleName { return data; } )* _
 { return [first].concat(other);  }
 
 context = context:contextHeading rules:oclRule+ {
@@ -56,7 +56,7 @@ contextHeading = kwContext /*name:contextName?*/ path:elementPath operationDecla
     }
 }
 
-operationDeclaration = params:( opLParen params:parameterList? opRParen { return params; } )? opColon returnType:identifier {
+operationDeclaration = params:( opLParen params:parameterList? opRParen { return params; } )? opColon returnType:simpleName {
     return {
         parameters: params === null ? [] : params,
         returnType: returnType
@@ -67,16 +67,16 @@ parameterList = first:paramDeclaration other:( opComma param:paramDeclaration { 
     return [first].concat(other);
 }
 
-paramDeclaration = paramName:identifier opColon paramType:identifier {
+paramDeclaration = paramName:simpleName opColon paramType:simpleName {
     return {
         parameterName: paramName,
         parameterType: paramType
     }
 }
 
-contextName = contextName:identifier opColon { return contextName; }
+contextName = contextName:simpleName opColon { return contextName; }
 
-oclRule = ruleType:oclRuleType ruleName:identifier? opColon ruleBody:oclRuleBody {
+oclRule = ruleType:oclRuleType ruleName:simpleName? opColon ruleBody:oclRuleBody {
     return {
         ruleName: ruleName === null ? "": ruleName,
         ruleType: ruleType,
@@ -262,7 +262,7 @@ navigation = self:(kwSelf opDot)? path:navigationPath args:methodArguments? {
         }
     }
 
-navigationPath = first:identifier other:( opDot data:identifier { return data; } )* {
+navigationPath = first:simpleName other:( opDot data:simpleName { return data; } )* {
     return [first].concat(other);
 }
 
@@ -376,8 +376,6 @@ variableDeclaration = name:simpleName typeDefinition:( opColon type:typeDefiniti
         initExpression: initExpression
     }
 }
-
-simpleName = identifier // must be done lexical correction
 
 primitiveLiteral = booleanLiteral / numberLiteral / stringLiteral / nullLiteral / invalidLiteral
 
@@ -612,11 +610,11 @@ opRBrace = "}" _
     OTHER LEXICAL ELEMENTS
 */
 
-stringInQuotes = "'" value:[^']* "'" { 
+stringInQuotes = !('_') "'" value:[^']* "'" { 
     return value.join("");
 }
 
-stringInDoubleQuotes = "\"" value:[^"]* "\"" { 
+stringInDoubleQuotes =  "\"" value:[^"]* "\"" { 
         return value.join("");
 }
  
@@ -629,6 +627,10 @@ number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimal
 }
 
 reservedWords = keyword / builtInFunctionNames / opSlimArrow collectionFunctionNames
+
+simpleName = "_'" data:[^']+ "'" { return data.join(""); }
+            / identifier
+
 
 identifier = !(reservedWords) first:letter other:(digit / letter)* _
 { return first + other.join(""); }
