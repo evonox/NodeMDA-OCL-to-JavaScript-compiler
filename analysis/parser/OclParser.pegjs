@@ -636,10 +636,15 @@ unreservedSimpleName = simpleName / restrictedKeywords
 simpleName = "_'" data:[^']+ "'" { return data.join(""); }
             / identifier
 
-identifier = !(reservedWords) first:letter other:(digit / letter)* (KW_SEP / _)
+identifier = !(reservedWords) first:UnicodeChar other:(digit / UnicodeChar)* (KW_SEP / _)
 { return first + other.join(""); }
 
 letter = [A-Za-z_]
+
+UnicodeChar = value:([A-Z] / [_] / [$] / [a-z] / [\xC0-\xD6] / [\xD8-\xF6] / [\xF8-\u02FF]
+            / [\u0370-\u037D] / [\u037F-\u1FFF]
+            / [\u200C-\u200D] / [\u2070-\u218F] / [\u2C00-\u2FEF]
+            / [\u3001-\uD7FF] / [\uF900-\uFDCF] / [\uFDF0-\uFFFD]) { return value; }
 
 digit = [0-9]
 

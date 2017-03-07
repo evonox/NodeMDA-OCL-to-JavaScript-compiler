@@ -1,6 +1,6 @@
 OrderedSet {
     1..10,
     true,
-    Tuple { first: String, second: String },
+    Tuple { čeština: String, second: String },
     45..60
 }
