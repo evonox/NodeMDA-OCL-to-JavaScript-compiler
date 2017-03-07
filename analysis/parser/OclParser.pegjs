@@ -267,7 +267,7 @@ iteratorExpression = nsExpr0 opSlimArrow simpleName opLParen iteratee opRParen
 
 iteratee = ( variableDeclaration? (opComma variableDeclaration)? opVerticalLine )? oclExpression
 
-iterateExpression = nsExpr0 opSlimArrow "iterate" opLParen (variableDeclaration opSemiColon )?
+iterateExpression = nsExpr0  opSlimArrow "iterate" opLParen (variableDeclaration opSemiColon )?
             variableDeclaration opVerticalLine oclExpression opRParen
 
 /*
