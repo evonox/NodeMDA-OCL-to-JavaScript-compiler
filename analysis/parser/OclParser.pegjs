@@ -92,7 +92,7 @@ oclRuleBody = oclExpression
     OCL EXPRESSION RULES
 */
 
-oclExpression = nsExpr0
+oclExpression = letExpression / callExpression / nsExpr0 
 
 nsExpr0 = left:nsExpr1 term:nsExpr0_ { return attachLeft(left, term); }
 nsExpr0_ = opImplies term:nsExpr1 { return binOp("implies", term, null); }
@@ -249,13 +249,63 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
     return [first].concat(other);
 }
 
+variableExpression = kwSelf / simpleName
+
+/*
+    Call expression
+*/
+
+callExpression = loopExpression
+
+/*
+    Loop expressions - TODO - complete
+*/
+
+loopExpression = iteratorExpression / iterateExpression
+
+iteratorExpression = nsExpr0 opSlimArrow simpleName opLParen iteratee opRParen
+
+iteratee = ( variableDeclaration? (opComma variableDeclaration)? opVerticalLine )? oclExpression
+
+iterateExpression = nsExpr0 opSlimArrow "iterate" opLParen (variableDeclaration opSemiColon )?
+            variableDeclaration opVerticalLine oclExpression opRParen
+
+/*
+    Let expression
+*/
+
+letExpression = kwLet first:variableDeclaration other:letExpressionSub {
+    return {
+        termType: "let", 
+        letExprElements: [first].concat(other)
+    }
+}
+
+letExpressionSub = (opComma first:variableDeclaration other:letExpressionSub) { return [first].concat(other) } 
+                    / (kwIn expression:oclExpression) { return expression; }
+
 /*
     OCL LITERALS
 */
 
-literal = literal:(primitiveLiteral / tupleLiteral / collectionLiteral) {
+literal = literal:(primitiveLiteral / tupleLiteral / collectionLiteral / typeLiteral / enumLiteral) {
     literal.termType = "literal";
     return literal;
+}
+
+enumLiteral = enumName:pathName opDoubleColon value:simpleName {
+    return {
+        literalType: "enumeration",
+        enumName: enumName,
+        value: value
+    }
+}
+
+typeLiteral = typeDefinition:typeDefinition {
+    return {
+        literalType: "type",
+        typeDefinition: typeDefinition
+    }
 }
 
 collectionLiteral = collectionType:collectionTypeIdent opLBrace items:collectionLiteralParts? opRBrace {
@@ -343,9 +393,18 @@ booleanLiteral = value:(kwTrue / kwFalse) {
 /*
     Type definition
 */
+
+
 typeDefinition = typeDef:(pathName / collectionType / tupleType / primitiveType / oclType) {
     typeDef.termType = "typeDefinition";
     return typeDef;
+}
+
+primitiveType = name:(kwBoolean / kwString / kwInteger / kwReal / kwUnlimitedNatural) {
+    return {
+        typeClass: "primitiveType",
+        name: name
+    }
 }
 
 pathName = pathname:navigation {
@@ -354,13 +413,6 @@ pathName = pathname:navigation {
         pathname: pathname
     }
 } 
-
-primitiveType = name:(kwBoolean / kwString / kwInteger / kwReal / kwUnlimitedNatural) {
-    return {
-        typeClass: "primitiveType",
-        name: name
-    }
-}
 
 oclType = name:(kwOclAny / kwOclInvalid / kwOclVoid) {
     return {
@@ -395,7 +447,11 @@ keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / 
         / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
         / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid / kwTuple / kwBoolean / kwInteger
         / kwReal / kwString / kwUnlimitedNatural / kwOclAny / kwOclInvalid / kwOclVoid
-        / kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet
+        / kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet / kwLet / kwIn
+
+kwLet = "let" __
+
+kwIn = "in" __
 
 kwSet = "Set" _ { return "Set"; }
 
@@ -465,17 +521,21 @@ kwFalse = "false" _ { return "false"; }
 
 operator = opArrow / opNot / opMult / opDiv / opMinus / opPlus / opLess / opGreater / opLessOrEqual 
         / opGreaterOrEqual / opEqual / opNotEqual / opAnd / opOr / opXor / opImplies / opDoubleColon
-        / opColon / opSlimArrow / opLBrace / opRBrace / opDoubleDot / opDot
+        / opColon / opSlimArrow / opLBrace / opRBrace / opDoubleDot / opDot / opVerticalLine / opSemiColon
 
-opDoubleDot = ".."
+opVerticalLine = "|" _
+
+opDoubleDot = ".." _
 
 opSlimArrow = "->" _
 
 opComma = "," _
 
-opDoubleColon = "::"
+opDoubleColon = "::" _
 
 opColon = ":" _
+
+opSemiColon = ";" _
 
 opPrevValue = "@pre" _
 
@@ -551,3 +611,4 @@ letter = [A-Za-z_]
 digit = [0-9]
 
 _ = [ \n\r\t]*
+__ = [ \n\r\t]+

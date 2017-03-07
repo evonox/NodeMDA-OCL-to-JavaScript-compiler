@@ -1,0 +1,4 @@
+let firsName: String = "Viktor", surname: String = "Prehnal" in
+    let age: Integer = 35 in
+        age < 50
+        
