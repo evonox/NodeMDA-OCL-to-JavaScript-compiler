@@ -447,7 +447,7 @@ keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / 
         / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
         / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid / kwTuple / kwBoolean / kwInteger
         / kwReal / kwString / kwUnlimitedNatural / kwOclAny / kwOclInvalid / kwOclVoid
-        / kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet / kwLet / kwIn
+        / kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet / kwLet / kwIn / kwStatic
 
 kwLet = "let" KW_SEP
 
@@ -480,6 +480,8 @@ kwString = "String" KW_SEP { return "String"; }
 kwUnlimitedNatural = "UnlimitedNatural" KW_SEP { return  "UnlimitedNatural"; }
 
 kwTuple = "Tuple" KW_SEP
+
+kwStatic = "static" KW_SEP
 
 kwNull = "null" KW_SEP
 
