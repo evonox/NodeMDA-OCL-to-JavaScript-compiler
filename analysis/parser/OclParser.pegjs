@@ -624,13 +624,14 @@ number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimal
         number += "." + decimalPart;
     }
     return number;
-}
+} / "." decimalPart:digit+ { return "0." + decimalPart.join(""); }
 
 reservedWords = restrictedKeywords / keyword / builtInFunctionNames / opArrow collectionFunctionNames
 
 pathName = first:simpleName other:( name:simpleName { return name; })* unreservedName:unreservedSimpleName? {
     return [first].concat(other).concat(unreservedName === null ? []: [unreservedName]);
 }
+
 unreservedSimpleName = simpleName / restrictedKeywords
 
 simpleName = "_'" data:[^']+ "'" { return data.join(""); }
