@@ -610,11 +610,11 @@ opRBrace = "}" _
     OTHER LEXICAL ELEMENTS
 */
 
-stringInQuotes = !('_') "'" value:[^']* "'" { 
+stringInQuotes = !('_') "'" value:StringChar* "'" { 
     return value.join("");
 }
 
-stringInDoubleQuotes =  "\"" value:[^"]* "\"" { 
+stringInDoubleQuotes =  "\"" value:StringChar* "\"" { 
         return value.join("");
 }
  
@@ -639,14 +639,36 @@ simpleName = "_'" data:[^']+ "'" { return data.join(""); }
 identifier = !(reservedWords) first:UnicodeChar other:(digit / UnicodeChar)* (KW_SEP / _)
 { return first + other.join(""); }
 
-letter = [A-Za-z_]
-
 UnicodeChar = value:([A-Z] / [_] / [$] / [a-z] / [\xC0-\xD6] / [\xD8-\xF6] / [\xF8-\u02FF]
             / [\u0370-\u037D] / [\u037F-\u1FFF]
             / [\u200C-\u200D] / [\u2070-\u218F] / [\u2C00-\u2FEF]
             / [\u3001-\uD7FF] / [\uF900-\uFDCF] / [\uFDF0-\uFFFD]) { return value; }
 
+// Taken from URL: http://stackoverflow.com/questions/33947960/allowing-for-quotes-and-unicode-in-peg-js-grammar-definitions
+StringChar
+= !("'" / '"') unescaped
+  / escape
+    sequence:(
+        '"'
+      / "\\"
+      / "/"
+      / "b" { return "\b"; }
+      / "f" { return "\f"; }
+      / "n" { return "\n"; }
+      / "r" { return "\r"; }
+      / "t" { return "\t"; }
+      / "u" digits:$(HEXDIG HEXDIG HEXDIG HEXDIG) {
+          return String.fromCharCode(parseInt(digits, 16));
+        }
+    )
+    { return sequence; }
+
+escape         = "\\"
+quotation_mark = '"'
+unescaped      = [\x20-\x21\x23-\x5B\x5D-\uFFFF]
+
 digit = [0-9]
+HEXDIG = digit / [A-Z]
 
 _ = [ \n\r\t]*
 __ = [ \n\r\t]+
