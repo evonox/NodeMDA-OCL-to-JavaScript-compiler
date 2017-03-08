@@ -18,6 +18,7 @@ PLAN PRACE - Literals
 STANDARD OCL LIBRARY
 ====================
 1. Dokonceni parametru a result values
+1.1. Doplneni definovanych operatoru s jejich typy - pouzijeme take
 2. Promitnuti do PEGJS gramatiky
 3. Zavedeni iterator methods do gramatiky
 4. Prozkoumat well-formedness generovaneho JS kodu

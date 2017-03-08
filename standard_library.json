@@ -162,221 +162,258 @@
     "Real": {
         "abs": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Real"
         },
         "floor": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Integer"
         },
         "round": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Integer"
         },
         "max": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Real"
+            ],
+            "returnType": "Real"
         },
         "min": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Real"
+            ],
+            "returnType": "Real"
         },
         "toString": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "String"
         }
     },
     "Integer": {
         "abs": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Integer"
         },
         "div": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Integer"
+            ],
+            "returnType": "Integer"
         },
         "mod": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Integer"
+            ],
+            "returnType": "Integer"
         },
         "max": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Integer"
+            ],
+            "returnType": "Integer"
         },
         "min": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Integer"
+            ],
+            "returnType": "Integer"
         },
         "toString": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "String"
         }
     },
     "String": {
+        "+": {
+            "parameters": [
+                "String"
+            ],
+            "returnType": "String"
+        },
         "size": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Integer"
         },
         "concat": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "String"
+            ],
+            "returnType": "String"
         },
         "substring": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Integer",
+                "Integer"
+            ],
+            "returnType": "String"
         },
         "toInteger": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Integer"
         },
         "toReal": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Real"
         },
         "toUpperCase": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "String"
         },
         "toLowerCase": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "String"
         },
         "indexOf": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "String"
+            ],
+            "returnType": "Integer"
         },
         "equalsIgnoreCase": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "String"
+            ],
+            "returnType": "Boolean"
         },
         "at": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "Integer"
+            ],
+            "returnType": "String"
         },
         "characters": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Sequence(String)"
         },
         "toBoolean": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Boolean"
         }
     },
     "Boolean": {
         "toString": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "String"
         }
     },
     "UnlimitedNatural": {
         "div": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "UnlimitedNatural"
+            ],
+            "returnType": "UnlimitedNatural"
         },
         "mod": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "UnlimitedNatural"
+            ],
+            "returnType": "UnlimitedNatural"
         },
         "max": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "UnlimitedNatural"
+            ],
+            "returnType": "UnlimitedNatural"
         },
         "min": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": [
+                "UnlimitedNatural"
+            ],
+            "returnType": "UnlimitedNatural"
         },
         "toInteger": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Integer"
         },
         "toString": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "String"
         }
     },
     "Collection": {
         "=": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["Collection(T)"],
+            "returnType": "Collection(T)"
         },
         "<>": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["Collection(T)"],
+            "returnType": "Collection(T)"
         },
         "size": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Integer"
         },
         "includes": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["T"],
+            "returnType": "Boolean"
         },
         "excludes": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["T"],
+            "returnType": "Boolean"
         },
         "count": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["T"],
+            "returnType": "Integer"
         },
         "includesAll": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["Collection(T)"],
+            "returnType": "Boolean"
         },
         "excludesAll": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["Collection(T)"],
+            "returnType": "Boolean"
         },
         "isEmpty": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Boolean"
         },
         "notEmpty": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Boolean"
         },
         "max": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "T"
         },
         "min": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "T"
         },
         "sum": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "T"
         },
         "product": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["Collection(T2)"],
+            "returnType": "Set(Tuple(first: T, second: T2))"
         },
         "selectByKind": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["Classifier"],
+            "returnType": "Collection(T)"
         },
         "selectByType": {
-            "parameters": [],
-            "returnType": ""
+            "parameters": ["Classifier"],
+            "returnType": "Collection(T)"
         },
         "asSet": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Set(T)"
         },
         "asOrderedSet": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "OrderedSet(T)"
         },
         "asSequence": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Sequence(T)"
         },
         "asBag": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Bag(T)"
         },
         "flatten": {
             "parameters": [],
-            "returnType": ""
+            "returnType": "Collection(T2)"
         }
     },
     "Set": {
