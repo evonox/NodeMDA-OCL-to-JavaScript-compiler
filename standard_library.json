@@ -332,11 +332,15 @@
     },
     "Collection": {
         "=": {
-            "parameters": ["Collection(T)"],
+            "parameters": [
+                "Collection(T)"
+            ],
             "returnType": "Collection(T)"
         },
         "<>": {
-            "parameters": ["Collection(T)"],
+            "parameters": [
+                "Collection(T)"
+            ],
             "returnType": "Collection(T)"
         },
         "size": {
@@ -344,23 +348,33 @@
             "returnType": "Integer"
         },
         "includes": {
-            "parameters": ["T"],
+            "parameters": [
+                "T"
+            ],
             "returnType": "Boolean"
         },
         "excludes": {
-            "parameters": ["T"],
+            "parameters": [
+                "T"
+            ],
             "returnType": "Boolean"
         },
         "count": {
-            "parameters": ["T"],
+            "parameters": [
+                "T"
+            ],
             "returnType": "Integer"
         },
         "includesAll": {
-            "parameters": ["Collection(T)"],
+            "parameters": [
+                "Collection(T)"
+            ],
             "returnType": "Boolean"
         },
         "excludesAll": {
-            "parameters": ["Collection(T)"],
+            "parameters": [
+                "Collection(T)"
+            ],
             "returnType": "Boolean"
         },
         "isEmpty": {
@@ -384,15 +398,21 @@
             "returnType": "T"
         },
         "product": {
-            "parameters": ["Collection(T2)"],
+            "parameters": [
+                "Collection(T2)"
+            ],
             "returnType": "Set(Tuple(first: T, second: T2))"
         },
         "selectByKind": {
-            "parameters": ["Classifier"],
+            "parameters": [
+                "Classifier"
+            ],
             "returnType": "Collection(T)"
         },
         "selectByType": {
-            "parameters": ["Classifier"],
+            "parameters": [
+                "Classifier"
+            ],
             "returnType": "Collection(T)"
         },
         "asSet": {
@@ -416,7 +436,7 @@
             "returnType": "Collection(T2)"
         }
     },
-    "Set": {
+    "Set": {     
         "union": {
             "parameters": [],
             "returnType": ""
