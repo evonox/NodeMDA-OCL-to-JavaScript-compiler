@@ -88,6 +88,10 @@ class Attribute extends UMLElement {
     }
 
     isAttribute() { return true; }
+
+    toJson() {
+        return {};
+    }
 }
 
 class Association extends UMLElement {
@@ -100,6 +104,10 @@ class Association extends UMLElement {
     get name() {
         return this.metaElement.myEnd.name;
     }
+
+    toJson() {
+        return {};
+    }
 }
 
 class Dependency extends UMLElement {
@@ -110,6 +118,10 @@ class Dependency extends UMLElement {
     get name() { return ""; }
 
     isDependency() { return true; }
+
+    toJson() {
+        return {};
+    }
 }
 
 class Generalization extends UMLElement {
@@ -120,6 +132,10 @@ class Generalization extends UMLElement {
     get name() { return ""; }
 
     isGeneralization() { return true; }
+
+    toJson() {
+        return {};
+    }
 }
 
 
@@ -135,23 +151,88 @@ class MetaModelQueryFacade {
         Query methods
     */
     getRootPackage() { return this.rootPackage; }
-    queryTopPackages() {}
-    queryChildPackages(packageHandle) {}
-    queryClasses(packageHandle) {}
-    queryDataTypes(packageHandle) {}
+    queryTopPackages() {
+        return this.rootPackage.childElements.filter((element) => {
+            return element.isPackage();
+        });
+    }
+    queryChildPackages(packageHandle) {
+        return packageHandle.childElements.filter((element) => {
+            return element.isPackage();
+        });
+    }
+    queryClasses(packageHandle) {
+        return packageHandle.childElements.filter((element) => {
+            return element.isClass();
+        });
+    }
+    queryDataTypes(packageHandle) {
+        return packageHandle.childElements.filter((element) => {
+            return element.isDataType();
+        });
+    }
 
-    getElementComment(elementHandle) {}
-    getElementName(elementHandle) {}
-    getElementStereotypes(elementHandle) {}
-    getElementTagValues(elementHandle) {}  
+    getElementComment(elementHandle) {
+        return elementHandle.metaElement.comment;
+    }
+    getElementName(elementHandle) {
+        return elementHandle.name;
+    }
+    getElementStereotypes(elementHandle) {
+        if(elementHandle.metaElement.stereotypes === undefined) return [];
+        return elementHandle.metaElement.stereotypes.map((s) => s.name);
+    }
+    getElementTagValues(elementHandle) {
+        if(elementHandle.metaElement.tags === undefined) return [];
+        else return elementHandle.metaElement.tags.map((tag) => {
+            return {
+                name: tag._name,
+                value: tag._value
+            }
+        });
+    }  
 
-    getClassAssociations(classHandle) {}
-    getClassAttributes(classHandle) {}
-    getClassDependencies(classHandle) {}
-    getClassGeneralizations(classHandle) {}
-    getClassOperations(classHandle) {}
+    getClassAssociations(classHandle) {
+        return classHandle.childElements.filter((element) => {
+            return element.isAssociation();
+        })
+        .map((element) => element.toJson());
+    }
+    getClassAttributes(classHandle) {
+        return classHandle.childElements.filter((element) => {
+            return element.isAttribute();
+        })
+        .map((element) => element.toJson());
+    }
+    getClassDependencies(classHandle) {
+        return classHandle.childElements.filter((element) => {
+            return element.isDependency();
+        })
+        .map((element) => element.toJson());
+    }
+    getClassGeneralizations(classHandle) {
+        return classHandle.childElements.filter((element) => {
+            return element.isGeneralization();
+        })
+        .map((element) => element.toJson());
+    }
+    getClassOperations(classHandle) {
+        return classHandle.childElements.filter((element) => {
+            return element.isOperation();
+        });
+    }
 
-    getOperationParameters(operationHandle) {}
+    getOperationParameters(operationHandle) {
+        return operationHandle.metaElement.parameters.map((parameter) => {
+            return {
+                name: parameter._name,
+                type: parameter._type, // TODO needs to be resolved
+                readOnly: parameter._readOnly,
+                multiplicity: _multiplicity,
+                visibility: _visibility
+            };
+        });
+    }
     /*
         NodeMDA Meta-model parsing methods
     */
