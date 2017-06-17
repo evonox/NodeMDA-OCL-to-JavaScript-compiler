@@ -1,0 +1,7 @@
+package EducationSystem
+
+    context College::getClass(index: Integer): Class
+        pre: index >= 0 and index < self.classes.count
+        post: self.classes.get(index) <> null
+
+endpackage

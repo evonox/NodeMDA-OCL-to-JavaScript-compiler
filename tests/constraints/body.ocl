@@ -1,0 +1,4 @@
+
+context College::getBestClass(): Class 
+    body: self.classes.get(self.bestClass)
+

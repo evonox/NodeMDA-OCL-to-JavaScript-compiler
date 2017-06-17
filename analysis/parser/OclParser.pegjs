@@ -67,7 +67,7 @@ parameterList = first:paramDeclaration other:( opComma param:paramDeclaration { 
     return [first].concat(other);
 }
 
-paramDeclaration = paramName:simpleName opColon paramType:simpleName {
+paramDeclaration = paramName:simpleName opColon paramType:(restrictedKeywords / simpleName) {
     return {
         parameterName: paramName,
         parameterType: paramType
@@ -84,7 +84,7 @@ oclRule = ruleType:oclRuleType ruleName:simpleName? opColon ruleBody:oclRuleBody
     }
 }
 
-oclRuleType = kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive
+oclRuleType = kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive / kwInit
 
 oclRuleBody = oclExpression
 
@@ -273,7 +273,7 @@ argumentList = first:oclExpression other:( opComma expr:oclExpression { return e
     return [first].concat(other);
 }
 
-variableExpression = kwSelf / simpleName
+variableExpression = !(kwSelf / simpleName ".") kwSelf / simpleName
 
 /*
     Call expression - TODO Complete for FeatureCalls
@@ -459,7 +459,7 @@ tupleType = kwTuple opLParen variables:variableDeclarationList? opRParen {
 */
 
 keyword = opNot / opAnd / opOr / opXor / opImplies / kwContext / kwEndPackage / kwPackage / kwTrue
-        / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive 
+        / kwFalse / kwSelf / kwPrecondition / kwPostcondition / kwInvariant / kwBody / kwDerive / kwInit
         / kwIf / kwThen / kwElse / kwEndIf / kwNull / kwInvalid /  kwLet / kwIn / kwStatic
 
 restrictedKeywords = kwSet / kwBag / kwSequence / kwCollection / kwOrderedSet
@@ -532,6 +532,8 @@ kwInvariant = "inv" KW_SEP { return "inv"; }
 kwBody = "body" KW_SEP { return "body"; }
 
 kwDerive = "derive" KW_SEP { return "derive"; }
+
+kwInit = "init" KW_SEP { return "init"; }
 
 kwSelf = "self" KW_SEP
 
@@ -618,13 +620,13 @@ stringInDoubleQuotes =  "\"" value:StringChar* "\"" {
     return value.join("");
 }
  
-number = wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimalPart.join(""); } )? { 
+number = !(digit+ "." UnicodeChar) wholePart:digit+ decimalPart:( "."  decimalPart:digit+ { return decimalPart.join(""); } )? { 
     var number = wholePart.join("");
     if(decimalPart !== null) {
         number += "." + decimalPart;
     }
     return number;
-} / "." decimalPart:digit+ { return "0." + decimalPart.join(""); }
+} / !("." UnicodeChar) "." decimalPart:digit+ { return "0." + decimalPart.join(""); }
 
 reservedWords = restrictedKeywords / keyword / builtInFunctionNames / opArrow collectionFunctionNames
 

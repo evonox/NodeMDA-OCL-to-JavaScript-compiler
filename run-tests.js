@@ -14,7 +14,7 @@ fileScanner.scan("./tests/", "ocl", (filePath) => {
     let ast = null;
     try {
         ast = parser.parse(content, {
-            startRule: "oclExpression"
+            startRule: "OCL"
         });
     } catch(e) {
         console.log(`Error in file ${filePath}:`);

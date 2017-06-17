@@ -1,0 +1,7 @@
+context School inv:
+    self.classes > 50
+
+context c: College inv MinimumClasses:
+    self.classes > 100
+
+

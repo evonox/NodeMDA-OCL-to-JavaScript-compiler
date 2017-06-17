@@ -1,0 +1,4 @@
+context College::bestClass: Class
+    init: null
+    derive: self.classes.get(self.best)
+
