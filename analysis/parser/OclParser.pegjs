@@ -306,8 +306,8 @@ letExpression = kwLet first:variableDeclaration other:letExpressionSub {
     }
 }
 
-letExpressionSub = (opComma first:variableDeclaration other:letExpressionSub) { return [first].concat(other) } 
-                    / (kwIn expression:oclExpression) { return expression; }
+letExpressionSub = data:(opComma first:variableDeclaration other:letExpressionSub { return [first].concat(other) }) { return data; }
+                    / expression:(kwIn expression:oclExpression { return expression; }) { return expression; }
 
 /*
     OCL LITERALS
